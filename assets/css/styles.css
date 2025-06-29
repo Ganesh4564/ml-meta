@@ -1,0 +1,135 @@
+/* assets/css/styles.css */
+
+/* Base Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body & Layout */
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    background: #f4f6f8;
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-size: 3rem;
+    color: #005DAA;
+}
+
+header .tagline {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 0.5rem;
+}
+
+/* Navigation */
+nav {
+    margin-bottom: 2rem;
+}
+
+nav h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #005DAA;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-section {
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Collapsible Book Lists */
+details {
+    background: #fff;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    transition: background 0.2s;
+}
+
+details[open] {
+    background: #e9f0fb;
+}
+
+details summary {
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+    outline: none;
+}
+
+details summary::-webkit-details-marker,
+details summary::marker {
+    display: none;
+}
+
+details summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 0.5rem;
+    transition: transform 0.2s;
+}
+
+details[open] summary::before {
+    content: "▼";
+}
+
+.chapter-list {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.chapter-list li {
+    margin-bottom: 0.3rem;
+}
+
+/* Links */
+.nav-list a,
+.chapter-list a {
+    text-decoration: none;
+    color: #0366d6;
+}
+
+.nav-list a:hover,
+.chapter-list a:hover {
+    text-decoration: underline;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+    margin-top: 3rem;
+}
+
+footer a {
+    color: #005DAA;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}

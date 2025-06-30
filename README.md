@@ -74,6 +74,7 @@ The project is organized with a straightforward file structure:
 │           └── ...          # HTML files for each chapter
 └── index.html               # The main landing page of the site
 
+```
 ---
 
 ## How It Works

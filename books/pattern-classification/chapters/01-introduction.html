@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 1: Introduction – Pattern Classification</title>
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="../../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../../assets/css/layout.css" />
+
+    <!-- Chapter-specific styles -->
+    <link rel="stylesheet" href="../../../assets/css/chapters.css" />
+
+    <!-- MathJax for LaTeX -->
+    <script>
+        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+</head>
+
+<body>
+    <div class="layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <nav>
+                <!-- Home Page -->
+                <ul class="home-nav">
+                    <li><a href="../../../index.html"> 🏠 Home Page</a></li>
+                </ul>
+
+                <h3>📖 Pattern Classification</h3>
+
+                <!-- Book navigation -->
+                <ul class="book-nav">
+                    <li><a href="../index.html"> 📚 Book Home</a></li>
+
+                    <!-- Chapter 1 with collapsible TOC -->
+                    <li class="chapter-details">
+                        <details open>
+                            <summary>Chapter 1: Introduction</summary>
+                            <ul id="toc-list" class="toc-list">
+                                <!-- main.js will inject section links here -->
+                            </ul>
+                        </details>
+                    </li>
+
+                    <li><a href="02-bayes-decision.html">Chapter 2: Bayes Decision Theory</a></li>
+                    <!-- …additional chapters… -->
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main content -->
+        <main class="content">
+            <h1>Chapter 1: Introduction</h1>
+
+            <p>
+                In this chapter, we introduce the problem of classification and the fundamental concepts of pattern recognition. We use Bayes’ decision rule:
+            </p>
+            <p>$$\delta^*(x)=\arg\min_j\sum_iL(j,i)\,p(i\mid x)\,.$$</p>
+
+            <h2>Probability</h2>
+            <p>…text on probability…</p>
+
+            <h2>Decision Boundaries</h2>
+            <p>…text on decision boundaries…</p>
+
+            <!-- Comments -->
+            <section id="comments">
+                <script src="https://utteranc.es/client.js" repo="COD1995/ml-meta" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async>
+                </script>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- TOC-generation script -->
+    <script src="../../../assets/js/main.js" defer></script>
+</body>
+
+</html>

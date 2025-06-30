@@ -1,0 +1,201 @@
+/* assets/css/chapters.css */
+
+/* 1. Grid layout */
+.layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.5rem;
+    min-height: 100vh;
+    background: #f0f2f5;
+}
+
+/* 2. Sidebar */
+.sidebar {
+    background: #fff;
+    border-right: 1px solid #e1e4e8;
+    padding: 1.5rem;
+    box-shadow: inset -1px 0 0 #e1e4e8;
+    font-size: 0.95rem;
+}
+
+.sidebar nav>ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar .home-nav {
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+/* 3. Book nav spacing */
+.sidebar .book-nav li+li {
+    margin-top: 0.5rem;
+}
+
+/* 4. Link styling */
+.sidebar a {
+    display: block;
+    color: #0366d6;
+    text-decoration: none;
+    transition: color 0.2s;
+    padding: 0.25rem 0;
+}
+
+.sidebar a:hover {
+    color: #044289;
+}
+
+.sidebar a.active {
+    color: #005cc5;
+    font-weight: 600;
+}
+
+/* 5. Return arrow before Home Page and Book Home */
+.sidebar .home-nav li a::before,
+.sidebar .book-nav>li:first-child a::before {
+    content: "↩ ";
+    display: inline-block;
+    margin-right: 0.25rem;
+}
+
+/* 6. Collapsible Chapter Details */
+.chapter-details details {
+    margin-bottom: 1rem;
+}
+
+.chapter-details summary {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 0.25rem 0;
+    transition: color 0.2s;
+}
+
+.chapter-details summary:hover {
+    color: #044289;
+}
+
+/* hide native marker */
+.chapter-details summary::-webkit-details-marker,
+.chapter-details summary::marker {
+    display: none;
+}
+
+/* custom arrow, needs inline-block to rotate */
+.chapter-details summary::before {
+    content: "▶";
+    display: inline-block;
+    margin-right: 0.5rem;
+    transform: rotate(0deg);
+    transition: transform 0.2s ease;
+}
+
+/* FIX: Add a space between .chapter-details and details[open] */
+.chapter-details details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+/* 7. TOC list styling */
+.toc-list {
+    list-style: none;
+    margin: 0.5rem 0;
+    padding-left: 1.25rem;
+}
+
+.toc-list li {
+    margin-bottom: 0.4rem;
+}
+
+.toc-list li.h3 {
+    margin-left: 1rem;
+}
+
+.toc-list a {
+    font-size: 0.93rem;
+    color: #0366d6;
+}
+
+.toc-list a:hover {
+    text-decoration: underline;
+}
+
+/* 8. Main content */
+.content {
+    background: #fff;
+    padding: 2rem;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(27, 31, 35, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* 9. Comments section */
+#comments {
+    margin-top: 2.5rem;
+    border-top: 1px solid #e1e4e8;
+    padding-top: 1.5rem;
+}
+
+/* 10. Responsive */
+@media (max-width: 768px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+        order: 2;
+        border-right: none;
+        border-top: 1px solid #e1e4e8;
+        padding-top: 1rem;
+    }
+
+    .content {
+        order: 1;
+    }
+}
+
+/* 11. Explanation Block Styles */
+.explanation-block {
+    margin-bottom: 2rem;
+    /* Space between each text/explanation pair */
+}
+
+.original-text-container {
+    background-color: #f6f8fa;
+    /* A light gray background */
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.original-text-container p:first-child {
+    margin-top: 0;
+}
+
+.original-text-container p:last-child {
+    margin-bottom: 0;
+}
+
+p.original-text {
+    font-style: italic;
+    color: #333;
+}
+
+/* UPDATED: Removed the border from the explanation text */
+.explanation-text {
+    /* No border or padding needed here anymore */
+}
+
+/* ADDED: Ensures lists inside explanations are indented */
+.explanation-text ul,
+.explanation-text ol {
+    padding-left: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}

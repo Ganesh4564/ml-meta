@@ -5,67 +5,76 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ML Compendium</title>
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <title>Machine Learning Mastery</title>
+
+    <!-- Global & layout styles -->
+    <link rel="stylesheet" href="assets/css/base.css" />
+    <link rel="stylesheet" href="assets/css/layout.css" />
+
+    <!-- Styles for the book list -->
+    <link rel="stylesheet" href="assets/css/books.css" />
 </head>
 
 <body>
-    <header>
-        <h1>ML Compendium</h1>
-        <p class="tagline">
-            Your gateway to machine learning mastery through curated books, chapters, and papers.
-        </p>
-    </header>
+    <div class="container">
 
-    <nav>
-        <h2>📚 Contents</h2>
-        <ul class="nav-list">
+        <header>
+            <h1>Machine Learning Mastery</h1>
+            <p class="tagline">
+                A curated collection of notes for CS majors and passionate learners, bridging the gap between fundamental algorithms and modern artificial intelligence.
+            </p>
+        </header>
 
-            <!-- Deep Learning Book -->
-            <li class="nav-section">
-                <details open>
-                    <summary>Deep Learning (Goodfellow et al.)</summary>
-                    <ul class="chapter-list">
-                        <li><a href="books/deep-learning/chapters/01-introduction.html">Chapter 1: Introduction</a></li>
-                        <li><a href="books/deep-learning/chapters/02-linear-algebra.html">Chapter 2: Linear Algebra Review</a></li>
-                        <li><a href="books/deep-learning/chapters/03-probability.html">Chapter 3: Probability &amp; Information Theory</a></li>
-                        <!-- …more chapters… -->
-                    </ul>
-                </details>
-            </li>
+        <nav>
+            <h2>📚 Contents</h2>
+            <ul class="nav-list">
+                <!-- Algorithms -->
+                <li class="nav-section">
+                    <details>
+                        <summary>Algorithms (Sanjoy Dasgupta)</summary>
+                        <ul class="chapter-list">
+                            <li>
+                                <a href="books/algorithms/chapters/04-paths-in-graphs.html">
+                                    Chapter 4: Paths in graphs
+                                </a>
+                            </li>
+                            <!-- …additional chapters… -->
+                        </ul>
+                    </details>
+                </li>
+                <!-- Pattern Classification -->
+                <li class="nav-section">
+                    <details open>
+                        <summary>Pattern Classification (Duda et al.)</summary>
+                        <ul class="chapter-list">
+                            <li>
+                                <a href="books/pattern-classification/chapters/01-introduction.html">
+                                    Chapter 1: Introduction
+                                </a>
+                            </li>
+                            <li>
+                                <a href="books/pattern-classification/chapters/02-bayes-decision.html">
+                                    Chapter 2: Bayes Decision Theory
+                                </a>
+                            </li>
+                            <!-- …additional chapters… -->
+                        </ul>
+                    </details>
+                </li>
+                <!-- More Books -->
+            </ul>
+        </nav>
 
-            <!-- Pattern Recognition & ML Book -->
-            <li class="nav-section">
-                <details>
-                    <summary>Pattern Recognition &amp; ML (Bishop)</summary>
-                    <ul class="chapter-list">
-                        <li><a href="books/pattern-recognition/chapters/01-introduction.html">Chapter 1: Introduction</a></li>
-                        <li><a href="books/pattern-recognition/chapters/02-density-estimation.html">Chapter 2: Density Estimation</a></li>
-                        <!-- …more chapters… -->
-                    </ul>
-                </details>
-            </li>
+        <footer>
+            <p>
+                © 2025 Bob Guo •
+                <a href="https://github.com/COD1995/ml-meta" target="_blank" rel="noopener">
+                    View on GitHub
+                </a>
+            </p>
+        </footer>
 
-            <!-- Papers -->
-            <li class="nav-section">
-                <span class="section-title">Papers</span>
-                <ul class="chapter-list">
-                    <li><a href="papers/attention-is-all-you-need.html">Attention Is All You Need</a></li>
-                    <li><a href="papers/bert.html">BERT: Pre-training of Transformers</a></li>
-                </ul>
-            </li>
-
-        </ul>
-    </nav>
-
-    <footer>
-        <p>
-            © 2025 Bob Guo •
-            <a href="https://github.com/COD1995/ml-meta" target="_blank" rel="noopener">
-                View on GitHub
-            </a>
-        </p>
-    </footer>
+    </div>
 </body>
 
 </html>

@@ -1,0 +1,68 @@
+/* assets/css/books.css */
+
+/* Navigation list */
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Each section in the nav */
+.nav-section {
+    margin-bottom: 1rem;
+}
+
+/* Section titles (for Papers only) */
+.section-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+/* Collapsible book containers */
+details {
+    background: #fff;
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    transition: background 0.2s;
+}
+
+details[open] {
+    background: #e9f0fb;
+}
+
+/* Hide default marker */
+details summary::-webkit-details-marker,
+details summary::marker {
+    display: none;
+}
+
+/* Summary styling */
+details summary {
+    font-weight: bold;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Chapter list inside details */
+.chapter-list {
+    list-style: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.chapter-list li {
+    margin-bottom: 0.3rem;
+}
+
+/* Links */
+.nav-list a,
+.chapter-list a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.nav-list a:hover,
+.chapter-list a:hover {
+    text-decoration: underline;
+}

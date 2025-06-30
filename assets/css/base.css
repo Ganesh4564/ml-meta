@@ -1,0 +1,73 @@
+/* assets/css/base.css */
+
+/* Reset and global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #333;
+    background: #f4f6f8;
+    line-height: 1.6;
+}
+
+img,
+video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Utility */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Figure and Caption Styling */
+figure {
+    /* Add some vertical space around the entire figure block */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+
+    /* Use flexbox for easy alignment */
+    display: flex;
+    flex-direction: column;
+    /* Stack the image and caption vertically */
+    align-items: center;
+    /* Center them horizontally */
+}
+
+figure img {
+    /* This makes sure the image doesn't overflow its container */
+    max-width: 100%;
+    height: auto;
+    /* Optional: a subtle border and shadow can look nice */
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+}
+
+figure figcaption {
+    /* This adds the space between the image and the caption */
+    margin-top: 0.75rem;
+
+    /* Styles for the caption text */
+    font-size: 0.9em;
+    color: #586069;
+    /* A medium-dark gray */
+    text-align: center;
+}

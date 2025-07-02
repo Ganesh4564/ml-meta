@@ -16,6 +16,20 @@
     padding: 1.5rem;
     box-shadow: inset -1px 0 0 #e1e4e8;
     font-size: 0.95rem;
+
+    /* --- NEW: pin the sidebar --- */
+    position: sticky;
+    /* sticks when you scroll */
+    top: 0;
+    /* start sticking at the very top */
+    height: 100vh;
+    /* full viewport height            */
+    overflow-y: auto;
+    /* scroll internally if content > viewport */
+    align-self: start;
+    /* required for sticky inside CSS Grid     */
+    z-index: 10;
+    /* keeps it above page decorations         */
 }
 
 .sidebar nav>ul {
@@ -129,9 +143,11 @@
     padding: 2rem;
     border-radius: 6px;
     box-shadow: 0 1px 3px rgba(27, 31, 35, 0.1);
-    max-width: 800px;
+    max-width: clamp(800px, 70vw, 1200px);
     margin: 0 auto;
     line-height: 1.6;
+
+    min-width: 0;
 }
 
 /* 9. Comments section */
@@ -152,6 +168,11 @@
         border-right: none;
         border-top: 1px solid #e1e4e8;
         padding-top: 1rem;
+
+        /* --- NEW: cancel stickiness on small screens --- */
+        position: static;
+        height: auto;
+        overflow: visible;
     }
 
     .content {

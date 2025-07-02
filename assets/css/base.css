@@ -71,3 +71,55 @@ figure figcaption {
     /* A medium-dark gray */
     text-align: center;
 }
+
+/* Contributors section ---------------------------------------------------- */
+#contributors {
+    margin-top: 3rem;
+}
+
+#contributors h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.contributors-list {
+    display: grid;
+    gap: 0.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.contrib-card a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0.6rem 0.4rem;
+    transition: box-shadow 0.2s;
+}
+
+.contrib-card a:hover {
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.contrib-card img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 0.4rem;
+}
+
+.contrib-card .name {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.contrib-card .count {
+    font-size: 0.75rem;
+    color: #555;
+}

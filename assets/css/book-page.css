@@ -1,87 +1,89 @@
 /* assets/css/book-page.css
  * ------------------------------------------------------------------
- * Extra polish for book‐home (table‑of‑contents) pages only.
- * Works on top of base.css + layout.css + chapters.css.
+ * Styles for the modern, card-based book home page.
  * ----------------------------------------------------------------*/
 
-/* 1. Card‑style wrapper for each <details> --------------------------- */
-.toc-chapter {
-  margin: 1.25rem 0;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  background: #fafbfc;
-  transition: box-shadow 0.2s ease;
-}
-.toc-chapter[open] {
-  box-shadow: 0 2px 6px rgba(27, 31, 35, 0.08);
+/* Center the main content column and give it breathing room */
+.book-home-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
 }
 
-/* 2. Summary line (chapter heading) --------------------------------- */
-.toc-chapter > summary {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  list-style: none; /* hide default marker in Firefox */
-  cursor: pointer;
-  user-select: none;
-  font-weight: 600;
-  background: inherit;
-  border-radius: 6px; /* keeps rounded corners when closed */
-}
-.toc-chapter > summary::-webkit-details-marker,
-.toc-chapter > summary::marker {
-  display: none;
-} /* remove ▶ */
-
-.toc-chapter > summary::before {
-  content: "▸";
+/* Style for the "Back to Home" link */
+.back-link {
   display: inline-block;
-  margin-right: 0.6rem;
-  transition: transform 0.2s ease;
-}
-.toc-chapter[open] > summary::before {
-  transform: rotate(90deg); /* reveal ▼ when open */
+  margin-bottom: 2rem;
+  font-size: 0.9rem;
+  color: #586069;
 }
 
-/* Hover / focus highlight ------------------------------------------- */
-.toc-chapter > summary:hover,
-.toc-chapter > summary:focus-visible {
-  background: #f0f4ff;
+.book-home-content .tagline {
+  max-width: 65ch; /* Limit width for readability */
+  text-align: center;
+  margin: 0.5rem auto 3rem; /* Center the tagline */
+  font-size: 1.1rem;
+  color: #444;
 }
 
-/* 3. Inner UL list of topics ---------------------------------------- */
-.toc-chapter > .toc-list {
-  margin: 0;
-  padding: 0.5rem 1.75rem 0.75rem;
-  list-style: disc;
-  animation: fade-in 0.25s ease;
-}
-.toc-list li {
-  margin-bottom: 0.4rem;
-}
-
-@keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(-0.25rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* The responsive grid for chapter cards */
+.toc-grid {
+  display: grid;
+  /* Creates 1-3 columns depending on screen width */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem; /* Space between cards */
+  padding: 0;
+  list-style: none;
 }
 
-.toc-list a {
-  color: #0366d6;
+/* The card style for each chapter */
+.toc-card {
+  background: #ffffff;
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 1.25rem;
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.toc-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-3px);
+}
+
+/* Chapter title styling */
+.toc-card summary {
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+/* Remove the default dropdown marker */
+.toc-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.toc-card summary {
+  list-style: none;
+}
+
+/* Styling for the list of links within a card */
+.toc-card .toc-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 1rem;
+  border-top: 1px solid #e1e4e8;
+  padding-top: 1rem;
+}
+
+.toc-card .toc-list li a {
+  display: block;
+  padding: 0.5rem 0.25rem;
+  border-radius: 4px;
   text-decoration: none;
 }
-.toc-list a:hover {
-  text-decoration: underline;
-}
 
-/* 4. Responsive: single column -------------------------------------- */
-@media (max-width: 600px) {
-  .toc-chapter {
-    margin: 1rem 0;
-  }
+.toc-card .toc-list li a:hover {
+  background-color: #f6f8fa;
+  color: #0366d6;
+  text-decoration: none;
 }

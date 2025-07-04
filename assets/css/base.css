@@ -40,56 +40,55 @@ a:hover {
 
 /* Figure and Caption Styling */
 figure {
-  /* Add some vertical space around the entire figure block */
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-
-  /* Use flexbox for easy alignment */
   display: flex;
   flex-direction: column;
-  /* Stack the image and caption vertically */
   align-items: center;
-  /* Center them horizontally */
 }
 
 figure img {
-  /* This makes sure the image doesn't overflow its container */
   max-width: 100%;
   height: auto;
-  /* Optional: a subtle border and shadow can look nice */
   border: 1px solid #e1e4e8;
   border-radius: 6px;
 }
 
 figure figcaption {
-  /* This adds the space between the image and the caption */
   margin-top: 0.75rem;
-
-  /* Styles for the caption text */
   font-size: 0.9em;
   color: #586069;
-  /* A medium-dark gray */
   text-align: center;
 }
 
-/* Slack banner -------------------------------------------------------- */
-.slack-box {
-  text-align: center;
-  margin: 2rem 0 3rem;
-}
-
-.btn-slack {
+/* Generic Button Styles (for reuse) */
+.btn-slack,
+.btn-github {
   display: inline-block;
-  background: #4a154b; /* Slack brand colour */
   color: #fff;
-  padding: 0.65rem 1.4rem;
+  padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-weight: 600;
   text-decoration: none;
-  transition: background 0.2s ease;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.btn-slack {
+  background: #4a154b; /* Slack brand color */
 }
 .btn-slack:hover {
-  background: #621f69; /* slightly lighter on hover */
+  background: #621f69; /* Slightly lighter on hover */
+  color: #fff;
+  text-decoration: none;
+}
+
+.btn-github {
+  background-color: #2da44e; /* GitHub's brand color */
+}
+.btn-github:hover {
+  background-color: #279045;
+  color: #fff;
+  text-decoration: none;
 }
 
 /* Main contributors -------------------------------------------------- */
@@ -138,6 +137,7 @@ figure figcaption {
 .main-card figcaption {
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .main-card .name {
@@ -157,7 +157,6 @@ figure figcaption {
 }
 
 .site-link {
-  align-self: flex-start;
   font-size: 0.85rem;
   color: #0366d6;
   text-decoration: none;
@@ -166,38 +165,34 @@ figure figcaption {
   text-decoration: underline;
 }
 
-/* Call for contribution section */
+/* Call for contribution section -------------------------------------- */
 #call-for-contribution {
   text-align: center;
-  margin-top: 4rem; /* Increased from 3rem */
+  margin-top: 4rem;
   padding: 2rem;
   background-color: #f6f8fa;
   border: 1px solid #e1e4e8;
   border-radius: 8px;
 }
+
 #call-for-contribution h2 {
   margin-top: 0;
   font-size: 1.5rem;
 }
+
 #call-for-contribution p {
   max-width: 65ch; /* Improves readability */
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 1.5rem; /* Added bottom margin */
 }
-#call-for-contribution .btn-github {
-  display: inline-block;
-  margin-top: 1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: #2da44e; /* GitHub's brand color for "contribute" */
-  color: white;
-  text-decoration: none;
-  font-weight: 600;
-  border-radius: 6px;
-  transition: background-color 0.2s ease-in-out;
+
+/* This new class will style the container for the buttons */
+.button-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem; /* This creates space between the buttons */
 }
-#call-for-contribution .btn-github:hover {
-  background-color: #279045;
-}
+
 /* Contributors section ---------------------------------------------------- */
 #contributors {
   margin-top: 3rem;

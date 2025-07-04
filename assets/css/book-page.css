@@ -1,0 +1,87 @@
+/* assets/css/book-page.css
+ * ------------------------------------------------------------------
+ * Extra polish for book‐home (table‑of‑contents) pages only.
+ * Works on top of base.css + layout.css + chapters.css.
+ * ----------------------------------------------------------------*/
+
+/* 1. Card‑style wrapper for each <details> --------------------------- */
+.toc-chapter {
+  margin: 1.25rem 0;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #fafbfc;
+  transition: box-shadow 0.2s ease;
+}
+.toc-chapter[open] {
+  box-shadow: 0 2px 6px rgba(27, 31, 35, 0.08);
+}
+
+/* 2. Summary line (chapter heading) --------------------------------- */
+.toc-chapter > summary {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  list-style: none; /* hide default marker in Firefox */
+  cursor: pointer;
+  user-select: none;
+  font-weight: 600;
+  background: inherit;
+  border-radius: 6px; /* keeps rounded corners when closed */
+}
+.toc-chapter > summary::-webkit-details-marker,
+.toc-chapter > summary::marker {
+  display: none;
+} /* remove ▶ */
+
+.toc-chapter > summary::before {
+  content: "▸";
+  display: inline-block;
+  margin-right: 0.6rem;
+  transition: transform 0.2s ease;
+}
+.toc-chapter[open] > summary::before {
+  transform: rotate(90deg); /* reveal ▼ when open */
+}
+
+/* Hover / focus highlight ------------------------------------------- */
+.toc-chapter > summary:hover,
+.toc-chapter > summary:focus-visible {
+  background: #f0f4ff;
+}
+
+/* 3. Inner UL list of topics ---------------------------------------- */
+.toc-chapter > .toc-list {
+  margin: 0;
+  padding: 0.5rem 1.75rem 0.75rem;
+  list-style: disc;
+  animation: fade-in 0.25s ease;
+}
+.toc-list li {
+  margin-bottom: 0.4rem;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toc-list a {
+  color: #0366d6;
+  text-decoration: none;
+}
+.toc-list a:hover {
+  text-decoration: underline;
+}
+
+/* 4. Responsive: single column -------------------------------------- */
+@media (max-width: 600px) {
+  .toc-chapter {
+    margin: 1rem 0;
+  }
+}

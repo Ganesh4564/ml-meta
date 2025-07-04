@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chapter 6 — Dynamic Programming</title>
+
+    <!-- Core styles -->
+    <link rel="stylesheet" href="../../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../../assets/css/layout.css" />
+    <link rel="stylesheet" href="../../../assets/css/chapters.css" />
+
+    <!-- MathJax & pseudocode -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      };
+    </script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      async
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="layout">
+      <!-- ───────────── Sidebar ───────────── -->
+      <aside id="page-sidebar" class="sidebar">
+        <!-- Header row with Home link & hamburger -->
+        <div class="sidebar-header">
+          <a class="home-link" href="../../../index.html"> 🏠 Home Page</a>
+
+          <button
+            id="sidebarToggle"
+            class="sidebar-toggle"
+            aria-label="Toggle sidebar"
+            aria-expanded="true"
+          >
+            &#9776;
+          </button>
+        </div>
+
+        <!-- Everything below will fade out when collapsed -->
+        <div class="sidebar-inner">
+          <nav>
+            <h3>📖 Algorithms</h3>
+
+            <ul class="book-nav">
+              <li><a href="../index.html"> 📚 Book Home</a></li>
+
+              <!-- Chapter 4 -->
+              <li class="chapter-details">
+                <details>
+                  <summary>Chapter 4: Paths in Graphs</summary>
+                  <ul
+                    id="toc-ch04"
+                    class="toc-list"
+                    data-src="04-paths-in-graphs.html"
+                  ></ul>
+                </details>
+              </li>
+
+              <!-- Chapter 6 (current) -->
+              <li class="chapter-details">
+                <details open>
+                  <summary>Chapter 6: Dynamic Programming</summary>
+                  <ul id="toc-ch06" class="toc-list" data-src="self"></ul>
+                </details>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- ───────────── Main article ───────────── -->
+      <main class="content">
+        <h1>Chapter 6: Dynamic Programming</h1>
+
+        <!-- … chapter content … -->
+      </main>
+
+      <footer
+        style="
+          text-align: center;
+          margin-top: 2rem;
+          padding: 1rem;
+          border-top: 1px solid #e1e4e8;
+        "
+      >
+        <p>
+          © 2025 Jue Guo • 
+          <a
+            href="https://github.com/COD1995/ml-meta"
+            target="_blank"
+            rel="noopener"
+            >View on GitHub</a
+          >
+        </p>
+      </footer>
+    </div>
+
+    <!-- JS -------------------------------------------------------------- -->
+    <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        /* Render pseudocode + MathJax */
+        pseudocode.renderClass("pseudocode");
+        window.MathJax?.typeset();
+
+        /* Sidebar collapse behaviour */
+        const btn = document.getElementById("sidebarToggle");
+        const body = document.body;
+        btn.addEventListener("click", () => {
+          const collapsed = body.classList.toggle("sidebar-collapsed");
+          btn.setAttribute("aria-expanded", !collapsed);
+        });
+      });
+    </script>
+  </body>
+</html>

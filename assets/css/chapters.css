@@ -1,222 +1,255 @@
-/* assets/css/chapters.css */
+/* assets/css/chapters.css
+ * -------------------------------------------------------------
+ * Grid layout, collapsible sidebar (desktop) + drawer (mobile)
+ * ---------------------------------------------------------- */
 
-/* 1. Grid layout */
+/* ---------- Layout variables -------------------------------- */
+:root {
+  --sb-open: 350px; /* full width  */
+  --sb-closed: 56px; /* collapsed   */
+}
+
+/* 1 ── Grid --------------------------------------------------- */
 .layout {
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 1.5rem;
-    min-height: 100vh;
-    background: #f0f2f5;
+  display: grid;
+  grid-template-columns: var(--sb-open) 1fr;
+  gap: 1.5rem;
+  min-height: 100vh;
+  background: #f0f2f5;
+  transition: grid-template-columns 0.3s ease;
 }
 
-/* 2. Sidebar */
+/* 2 ── Sidebar ------------------------------------------------ */
 .sidebar {
-    background: #fff;
-    border-right: 1px solid #e1e4e8;
-    padding: 1.5rem;
-    box-shadow: inset -1px 0 0 #e1e4e8;
-    font-size: 0.95rem;
+  width: var(--sb-open);
+  background: #fff;
+  border-right: 1px solid #e1e4e8;
+  box-shadow: inset -1px 0 0 #e1e4e8;
+  padding: 1.5rem 1.5rem 2rem;
+  font-size: 0.95rem;
 
-    /* --- NEW: pin the sidebar --- */
-    position: sticky;
-    /* sticks when you scroll */
-    top: 0;
-    /* start sticking at the very top */
-    height: 100vh;
-    /* full viewport height            */
-    overflow-y: auto;
-    /* scroll internally if content > viewport */
-    align-self: start;
-    /* required for sticky inside CSS Grid     */
-    z-index: 10;
-    /* keeps it above page decorations         */
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  z-index: 90;
+  transition: width 0.3s ease;
 }
 
-.sidebar nav>ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+/* Header row inside sidebar */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: -0.25rem 0 1.25rem;
+}
+.sidebar-header .home-link {
+  font-weight: 600;
+  color: #0366d6;
+  text-decoration: none;
+}
+.sidebar-header .home-link:hover {
+  color: #044289;
 }
 
-.sidebar .home-nav {
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid #e1e4e8;
+/* Hamburger button */
+.sidebar-toggle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  background: #fff;
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.sidebar-toggle:hover {
+  background: #f6f8fa;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* 3. Book nav spacing */
-.sidebar .book-nav li+li {
-    margin-top: 0.5rem;
+/* Content wrapper that fades when collapsed */
+.sidebar-inner {
+  transition: opacity 0.2s ease;
 }
 
-/* 4. Link styling */
+/* 3 ── Nav styling (unchanged) -------------------------------- */
+.sidebar nav > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.sidebar .book-nav li + li {
+  margin-top: 0.5rem;
+}
+
 .sidebar a {
-    display: block;
-    color: #0366d6;
-    text-decoration: none;
-    transition: color 0.2s;
-    padding: 0.25rem 0;
+  display: block;
+  color: #0366d6;
+  text-decoration: none;
+  padding: 0.25rem 0;
+  transition: color 0.2s;
 }
-
 .sidebar a:hover {
-    color: #044289;
+  color: #044289;
 }
-
 .sidebar a.active {
-    color: #005cc5;
-    font-weight: 600;
+  color: #005cc5;
+  font-weight: 600;
 }
 
-/* 5. Return arrow before Home Page and Book Home */
-.sidebar .home-nav li a::before,
-.sidebar .book-nav>li:first-child a::before {
-    content: "↩ ";
-    display: inline-block;
-    margin-right: 0.25rem;
-}
-
-/* 6. Collapsible Chapter Details */
+/* chapter accordion */
 .chapter-details details {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
-
-.chapter-details summary {
-    display: inline-flex;
-    align-items: center;
-    cursor: pointer;
-    font-weight: 600;
-    padding: 0.25rem 0;
-    transition: color 0.2s;
+.chapter-details details > summary {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.35;
 }
-
-.chapter-details summary:hover {
-    color: #044289;
+.chapter-details details > summary::before {
+  content: "▶";
+  margin-right: 0.5rem;
+  transition: transform 0.2s;
 }
-
-/* hide native marker */
+.chapter-details details[open] > summary::before {
+  transform: rotate(90deg);
+}
 .chapter-details summary::-webkit-details-marker,
 .chapter-details summary::marker {
-    display: none;
+  display: none;
 }
 
-/* custom arrow, needs inline-block to rotate */
-.chapter-details summary::before {
-    content: "▶";
-    display: inline-block;
-    margin-right: 0.5rem;
-    transform: rotate(0deg);
-    transition: transform 0.2s ease;
-}
-
-/* FIX: Add a space between .chapter-details and details[open] */
-.chapter-details details[open] summary::before {
-    transform: rotate(90deg);
-}
-
-/* 7. TOC list styling */
+/* TOC list */
 .toc-list {
-    list-style: none;
-    margin: 0.5rem 0;
-    padding-left: 1.25rem;
+  list-style: none;
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
 }
-
 .toc-list li {
-    margin-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
 }
-
 .toc-list li.h3 {
-    margin-left: 1rem;
+  margin-left: 1rem;
 }
-
 .toc-list a {
-    font-size: 0.93rem;
-    color: #0366d6;
+  font-size: 0.93rem;
+  color: #0366d6;
 }
-
 .toc-list a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
-/* 8. Main content */
+/* 4 ── Collapse behaviour (desktop) --------------------------- */
+body.sidebar-collapsed .sidebar {
+  width: var(--sb-closed);
+}
+body.sidebar-collapsed .layout {
+  grid-template-columns: var(--sb-closed) 1fr;
+}
+body.sidebar-collapsed .sidebar-inner {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 5 ── Main content panel ------------------------------------- */
 .content {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(27, 31, 35, 0.1);
-    max-width: clamp(800px, 70vw, 1200px);
-    margin: 0 auto;
-    line-height: 1.6;
-
-    min-width: 0;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(27, 31, 35, 0.1);
+  max-width: clamp(800px, 70vw, 1200px);
+  margin: 0 auto;
+  line-height: 1.6;
+  min-width: 0;
 }
 
-/* 9. Comments section */
+/* 6 ── Comments section --------------------------------------- */
 #comments {
-    margin-top: 2.5rem;
-    border-top: 1px solid #e1e4e8;
-    padding-top: 1.5rem;
+  margin-top: 2.5rem;
+  border-top: 1px solid #e1e4e8;
+  padding-top: 1.5rem;
 }
 
-/* 10. Responsive */
+/* 7 ── Mobile drawer (≤768px) -------------------------------- */
 @media (max-width: 768px) {
-    .layout {
-        grid-template-columns: 1fr;
-    }
+  .layout {
+    grid-template-columns: 1fr;
+  } /* article full width */
 
-    .sidebar {
-        order: 2;
-        border-right: none;
-        border-top: 1px solid #e1e4e8;
-        padding-top: 1rem;
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    width: 72vw;
+    max-width: 280px;
+    transform: translateX(-100%);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.15);
+  }
+  body.sidebar-collapsed .sidebar {
+    transform: translateX(0);
+  }
+  body.sidebar-collapsed {
+    overflow: hidden;
+  }
 
-        /* --- NEW: cancel stickiness on small screens --- */
-        position: static;
-        height: auto;
-        overflow: visible;
-    }
-
-    .content {
-        order: 1;
-    }
+  /* keep hamburger over drawer */
+  .sidebar-toggle {
+    position: fixed;
+    z-index: 100;
+  }
+  .content {
+    position: relative;
+    z-index: 1;
+  }
 }
 
-/* 11. Explanation Block Styles */
+/* ── keep hamburger visible when collapsed ─────────────────── */
+body.sidebar-collapsed .sidebar {
+  padding: 0.5rem;
+} /* slimmer */
+body.sidebar-collapsed .sidebar-header {
+  justify-content: center; /* centre btn */
+}
+body.sidebar-collapsed .home-link {
+  display: none;
+} /* hide text */
+
+body.sidebar-collapsed .sidebar-toggle {
+  margin: 0; /* no leftover spacing */
+}
+
+/* 8 ── Explanation blocks (unchanged) ------------------------- */
 .explanation-block {
-    margin-bottom: 2rem;
-    /* Space between each text/explanation pair */
+  margin-bottom: 2rem;
 }
-
 .original-text-container {
-    background-color: #f6f8fa;
-    /* A light gray background */
-    border: 1px solid #e1e4e8;
-    border-radius: 6px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+  background: #f6f8fa;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
-
 .original-text-container p:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
-
 .original-text-container p:last-child {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
-
 p.original-text {
-    font-style: italic;
-    color: #333;
+  font-style: italic;
+  color: #333;
 }
 
-/* UPDATED: Removed the border from the explanation text */
-.explanation-text {
-    /* No border or padding needed here anymore */
-}
-
-/* ADDED: Ensures lists inside explanations are indented */
 .explanation-text ul,
 .explanation-text ol {
-    padding-left: 1.5rem;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  margin: 1rem 0;
 }

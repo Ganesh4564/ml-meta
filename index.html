@@ -1,8 +1,7 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Machine Learning Mastery</title>
@@ -16,170 +15,306 @@
 
     <!-- ✧ Optional inline styles for the contributor cards ---------------- -->
     <style>
-        /* Contributors section ---------------------------------------------------- */
-        #contributors {
-            margin-top: 3rem;
-        }
+      /* Contributors section ---------------------------------------------------- */
+      #contributors {
+        margin-top: 3rem;
+      }
 
-        #contributors h2 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-        }
+      #contributors h2 {
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+      }
 
-        .contributors-list {
-            display: grid;
-            gap: 0.8rem;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+      .contributors-list {
+        display: grid;
+        gap: 0.8rem;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
 
-        .contrib-card a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-decoration: none;
-            color: inherit;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            padding: 0.6rem 0.4rem;
-            transition: box-shadow 0.2s;
-        }
+      .contrib-card a {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.6rem 0.4rem;
+        transition: box-shadow 0.2s;
+      }
 
-        .contrib-card a:hover {
-            box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-        }
+      .contrib-card a:hover {
+        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+      }
 
-        .contrib-card img {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin-bottom: 0.4rem;
-        }
+      .contrib-card img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 0.4rem;
+      }
 
-        .contrib-card .name {
-            font-weight: 600;
-            font-size: 0.9rem;
-        }
+      .contrib-card .name {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
 
-        .contrib-card .count {
-            font-size: 0.75rem;
-            color: #555;
-        }
+      .contrib-card .count {
+        font-size: 0.75rem;
+        color: #555;
+      }
 
-        .error {
-            color: #c00;
-            font-style: italic;
-        }
+      .error {
+        color: #c00;
+        font-style: italic;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
+      <header>
+        <h1>Machine Learning Mastery</h1>
+        <p class="tagline">
+          A curated collection of notes for CS majors and passionate learners,
+          bridging the gap between fundamental algorithms and modern artificial
+          intelligence.
+        </p>
+      </header>
 
-        <header>
-            <h1>Machine Learning Mastery</h1>
-            <p class="tagline">
-                A curated collection of notes for CS majors and passionate learners, bridging the gap between fundamental algorithms and modern artificial intelligence.
-            </p>
-        </header>
-
-        <nav>
-            <h2>📚 Books </h2>
-            <ul class="nav-list">
-                <!-- Algorithms -->
-                <li class="nav-section">
-                    <details>
-                        <summary>Algorithms (Sanjoy Dasgupta)</summary>
-                        <ul class="chapter-list">
-                            <li>
-                                <a href="books/algorithms/chapters/04-paths-in-graphs.html">
-                                    Chapter&nbsp;4: Paths in graphs
-                                </a>
-                            </li>
-                            <!-- …additional chapters… -->
-                        </ul>
-                    </details>
-                </li>
-                <!-- Pattern Classification -->
-                <li class="nav-section">
-                    <details open>
-                        <summary>Pattern Classification (Duda et al.)</summary>
-                        <ul class="chapter-list">
-                            <li>
-                                <a href="books/pattern-classification/chapters/01-introduction.html">
-                                    Chapter&nbsp;1: Introduction
-                                </a>
-                            </li>
-                            <li>
-                                <a href="books/pattern-classification/chapters/02-bayes-decision.html">
-                                    Chapter&nbsp;2: Bayes Decision Theory
-                                </a>
-                            </li>
-                            <!-- …additional chapters… -->
-                        </ul>
-                    </details>
-                </li>
-                <!-- More Books -->
-            </ul>
-
-            <h2> Papers </h2>
-        </nav>
-
-        <!-- ✧ Contributors ------------------------------------------------------- -->
-        <section id="contributors">
-            <h2>🤝 Contributors</h2>
-            <ul class="contributors-list"></ul>
-        </section>
-
-        <footer>
-            <p>
-                © 2025 Bob Guo •
-                <a href="https://github.com/COD1995/ml-meta" target="_blank" rel="noopener">
-                    View on GitHub
+      <nav>
+        <h2>📚 Books</h2>
+        <ul class="nav-list">
+          <!-- Algorithms -->
+          <li class="nav-section">
+            <details>
+              <summary>
+                <!-- clickable book title inside the summary -->
+                <a class="book-link" href="books/algorithms/index.html">
+                  Algorithms (Sanjoy Dasgupta)
                 </a>
-            </p>
-        </footer>
+              </summary>
+              <ul class="chapter-list">
+                <li>
+                  <a href="books/algorithms/chapters/04-paths-in-graphs.html">
+                    Chapter&nbsp;4: Paths in graphs
+                  </a>
+                </li>
 
+                <li>
+                  <a
+                    href="books/algorithms/chapters/06-dynamic-programming.html"
+                  >
+                    Chapter&nbsp;6: Dynamic Programming
+                  </a>
+                </li>
+                <!-- …additional chapters… -->
+              </ul>
+            </details>
+          </li>
+          <!-- Pattern Classification -->
+          <li class="nav-section">
+            <details open>
+              <summary>Pattern Classification (Duda et al.)</summary>
+              <ul class="chapter-list">
+                <li>
+                  <a
+                    href="books/pattern-classification/chapters/01-introduction.html"
+                  >
+                    Chapter&nbsp;1: Introduction
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="books/pattern-classification/chapters/02-bayes-decision.html"
+                  >
+                    Chapter&nbsp;2: Bayes Decision Theory
+                  </a>
+                </li>
+                <!-- …additional chapters… -->
+              </ul>
+            </details>
+          </li>
+          <!-- More Books -->
+        </ul>
+
+        <!-- ─────────────── PAPERS ─────────────── -->
+        <h2>📄 Papers</h2>
+        <ul class="nav-list">
+          <!-- CV Papers ------------------------------------------------------- -->
+          <li class="nav-section">
+            <details>
+              <summary>
+                <a class="paper-link" href="papers/cv/index.html">
+                  Computer Vision Papers (in the process of updating)
+                </a>
+              </summary>
+              <!-- <ul class="chapter-list">
+                <li>
+                  <a href="papers/cv/2024-seg-gpt.html">
+                    Segment Anything Meets GPT (2024)
+                  </a>
+                </li>
+                <li>
+                  <a href="papers/cv/2023-sam.html">
+                    SAM: Segment Anything Model (2023)
+                  </a>
+                </li>
+              </ul> -->
+            </details>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- ✧ Slack community banner ------------------------------------------ -->
+      <div class="slack-box">
+        <a
+          class="btn-slack"
+          href="https://join.slack.com/t/mlmetacommunity/shared_invite/zt-38mj0hx5v-8GyxvZ7lanC9HbywfUOwJw"
+          target="_blank"
+          rel="noopener"
+        >
+          💬 Join our Slack community
+        </a>
+      </div>
+
+      <!-- ✧ Main Contributors ------------------------------------------------ -->
+      <section id="main-contributors">
+        <h2>🌟 Main Contributors</h2>
+
+        <ul class="main-contrib-list">
+          <!-- ─── Jue Guo ─────────────────────────────────────────── -->
+          <li class="main-card">
+            <figure>
+              <img
+                src="assets/images/author_profiles/jg.jpeg"
+                alt="Portrait of Jue Guo"
+              />
+              <figcaption>
+                <span class="name">Jue Guo</span>
+                <span class="role">Lead Author</span>
+
+                <a
+                  class="site-link"
+                  href="https://csragtoriches.com/"
+                  target="_blank"
+                  rel="noopener"
+                  >Personal Website ↗</a
+                >
+              </figcaption>
+            </figure>
+
+            <p class="bio">
+              Jue (Bob) Guo is a Ph.D. candidate and adjunct professor in
+              Computer Science at the University at Buffalo, specializing in
+              machine learning, deep learning and AI. He translates complex
+              theory into practical projects with PyTorch and TensorFlow,
+              develops curricula and mentors students bridging classical
+              algorithms with modern AI techniques.
+            </p>
+          </li>
+
+          <!-- ─── Kristopher Kodweis ──────────────────────────────── -->
+          <li class="main-card">
+            <figure>
+              <img
+                src="assets/images/author_profiles/kk.jpeg"
+                alt="Portrait of Kristopher Kodweis"
+              />
+              <figcaption>
+                <span class="name">Kristopher Kodweis</span>
+                <span class="role">Lead Author</span>
+              </figcaption>
+            </figure>
+
+            <p class="bio">
+              M.S. candidate in Mechanical Engineering focused on mobile‑first
+              computer‑vision systems. Drawing on visual‑communication design
+              and woodworking, he builds intuitive, user‑centric AI‑powered
+              products.
+            </p>
+            <!-- No personal site yet – omit link -->
+          </li>
+        </ul>
+      </section>
+
+      <section id="call-for-contribution">
+        <h2>🚀 Help Build This Resource</h2>
+        <p>
+          This project is built by the community. From fixing a typo to adding
+          notes on a new research paper, all contributions are welcome. See an
+          area for improvement? Open an issue or submit a pull request on
+          GitHub.
+        </p>
+        <a
+          href="https://github.com/COD1995/ml-meta"
+          class="btn-github"
+          target="_blank"
+          rel="noopener"
+        >
+          Contribute on GitHub
+        </a>
+      </section>
+
+      <!-- ✧ Contributors ------------------------------------------------------- -->
+      <section id="contributors">
+        <h2>🤝 Contributors</h2>
+        <ul class="contributors-list"></ul>
+      </section>
+
+      <footer>
+        <p>
+          © 2025 Bob Guo •
+          <a
+            href="https://github.com/COD1995/ml-meta"
+            target="_blank"
+            rel="noopener"
+          >
+            View on GitHub
+          </a>
+        </p>
+      </footer>
     </div>
 
     <!-- ✧ Script to fetch and display GitHub contributors ----------------------- -->
     <script>
-        (async () => {
-            const owner = 'COD1995';
-            const repo = 'ml-meta';
-            const api = `https://api.github.com/repos/${owner}/${repo}/contributors`;
-            /* If you hit the unauthenticated 60‑per‑hour limit, add:
+      (async () => {
+        const owner = "COD1995";
+        const repo = "ml-meta";
+        const api = `https://api.github.com/repos/${owner}/${repo}/contributors`;
+        /* If you hit the unauthenticated 60‑per‑hour limit, add:
                const headers = { Authorization: 'Bearer YOUR_GITHUB_TOKEN' }; */
-            const headers = {};
+        const headers = {};
 
-            let data = [];
-            try {
-                const res = await fetch(api, { headers });
-                if (!res.ok) throw new Error(`GitHub API: ${res.status} ${res.statusText}`);
-                data = await res.json();
-            } catch (err) {
-                console.error(err);
-                document.querySelector('#contributors').innerHTML =
-                    '<p class="error">Unable to load contributor list 😢</p>';
-                return;
-            }
+        let data = [];
+        try {
+          const res = await fetch(api, { headers });
+          if (!res.ok)
+            throw new Error(`GitHub API: ${res.status} ${res.statusText}`);
+          data = await res.json();
+        } catch (err) {
+          console.error(err);
+          document.querySelector("#contributors").innerHTML =
+            '<p class="error">Unable to load contributor list 😢</p>';
+          return;
+        }
 
-            const list = document.querySelector('.contributors-list');
-            data.forEach(user => {
-                const li = document.createElement('li');
-                li.className = 'contrib-card';
-                li.innerHTML = `
+        const list = document.querySelector(".contributors-list");
+        data.forEach((user) => {
+          const li = document.createElement("li");
+          li.className = "contrib-card";
+          li.innerHTML = `
               <a href="${user.html_url}" target="_blank" rel="noopener">
                 <img src="${user.avatar_url}&s=60" alt="${user.login} avatar">
                 <span class="name">${user.login}</span>
                 <span class="count">(${user.contributions})</span>
               </a>`;
-                list.appendChild(li);
-            });
-        })();
+          list.appendChild(li);
+        });
+      })();
     </script>
-</body>
-
+  </body>
 </html>

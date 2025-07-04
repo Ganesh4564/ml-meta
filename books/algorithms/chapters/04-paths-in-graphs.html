@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chapter 4 Paths in Graphs</title>
@@ -12,171 +11,281 @@
     <link rel="stylesheet" href="../../../assets/css/chapters.css" />
 
     <script>
-        window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] } };
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ["$", "$"],
+            ["\\(", "\\)"],
+          ],
+        },
+      };
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      async
+    ></script>
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css">
-</head>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css"
+    />
+  </head>
 
-<body>
+  <body>
     <div class="layout">
+      <aside class="sidebar">
+        <nav>
+          <ul class="home-nav">
+            <li><a href="../../../index.html"> 🏠 Home Page</a></li>
+          </ul>
 
-        <aside class="sidebar">
-            <nav>
-                <ul class="home-nav">
-                    <li><a href="../../../index.html"> 🏠 Home Page</a></li>
-                </ul>
+          <h3>📖 Algorithms</h3>
 
-                <h3>📖 Algorithms</h3>
+          <ul class="book-nav">
+            <li><a href="../index.html"> 📚 Book Home</a></li>
 
-                <ul class="book-nav">
-                    <li><a href="../index.html"> 📚 Book Home</a></li>
+            <li class="chapter-details">
+              <details open>
+                <summary>Chapter 4: Paths in Graphs</summary>
+                <ul id="toc-list" class="toc-list"></ul>
+              </details>
+              <details open>
+                <summary>Chapter 6: Dynamic Programming</summary>
+                <ul id="toc-list" class="toc-list"></ul>
+              </details>
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
-                    <li class="chapter-details">
-                        <details open>
-                            <summary>Chapter 4: Paths in Graphs</summary>
-                            <ul id="toc-list" class="toc-list">
-                            </ul>
-                        </details>
-                    </li>
+      <main class="content">
+        <h1>Chapter 4: Paths in Graphs</h1>
 
-                </ul>
-            </nav>
-        </aside>
+        <section id="distances">
+          <h2>4.1 Distances</h2>
 
-        <main class="content">
-            <h1>Chapter 4: Paths in Graphs</h1>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p>
+                <strong
+                  >The Limitation of DFS: Finding Paths vs. Shortest
+                  Paths</strong
+                >
+              </p>
+              <p class="original-text">
+                <em
+                  >Depth-first search readily identifies all the vertices of a
+                  graph that can be reached from a designated starting point. It
+                  also finds explicit paths to these vertices, summarized in its
+                  search tree (Figure 4.1). However, these paths might not be
+                  the most economical ones possible. In the figure, vertex $C$
+                  is reachable from $S$ by traversing just one edge, while the
+                  DFS tree shows a path of length 3 . This chapter is about
+                  algorithms for finding shortest paths in graphs.</em
+                >
 
-            <section id="distances">
-                <h2>4.1 Distances</h2>
+                <figure>
+                  <img
+                    src="../../../assets/images/algorithms/chpt_4_imgs/figure-4-1.png"
+                    alt="Side-by-side comparison of a DFS tree and a BFS tree for the same graph."
+                    width="700"
+                  />
+                  <figcaption>
+                    Figure 4.4: The DFS tree (left) and the BFS shortest-path
+                    tree (right).
+                  </figcaption>
+                </figure>
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph sets up the motivation for a new type of search
+                algorithm. It acknowledges that Depth-First Search (DFS) is
+                effective at finding which nodes are reachable and provides
+                <em>a</em> path to them. However, it highlights a key weakness:
+                the path found by DFS is often not the shortest possible path.
+                The primary goal of this chapter, therefore, is to find
+                algorithms that are specifically designed to find the
+                <strong>shortest paths</strong>.
+              </p>
+            </div>
+          </div>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>The Limitation of DFS: Finding Paths vs. Shortest Paths</strong></p>
-                        <p class="original-text">
-                            <em>Depth-first search readily identifies all the vertices of a graph that can be reached from a designated starting point. It also finds explicit paths to these vertices,
-                                summarized in its search tree (Figure 4.1). However, these paths might not be the most economical ones possible. In the figure, vertex $C$ is reachable from $S$ by
-                                traversing just one edge, while the DFS tree shows a path of length 3 . This chapter is about algorithms for finding shortest paths in graphs.</em>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Defining Distance in a Graph</strong></p>
+              <p class="original-text">
+                <em
+                  >Path lengths allow us to talk quantitatively about the extent
+                  to which different vertices of a graph are separated from each
+                  other:</em
+                >
+              </p>
+              <blockquote>
+                <em
+                  >The distance between two nodes is the length of the shortest
+                  path between them.</em
+                >
+              </blockquote>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This provides the formal definition of "distance" in the context
+                of graph theory. It's not a physical distance, but rather the
+                minimum number of edges one must traverse to get from a starting
+                node to a destination node.
+              </p>
+            </div>
+          </div>
 
-                        <figure>
-                            <img src="../../../assets/images/algorithms/chpt_4_imgs/figure-4-1.png" alt="Side-by-side comparison of a DFS tree and a BFS tree for the same graph." width="700">
-                            <figcaption>
-                                Figure 4.4: The DFS tree (left) and the BFS shortest-path tree (right).
-                            </figcaption>
-                        </figure>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>An Intuitive Model for Shortest Paths</strong></p>
+              <p class="original-text">
+                <em
+                  >To get a concrete feel for this notion, consider a physical
+                  realization of a graph that has a ball for each vertex and a
+                  piece of string for each edge. If you lift the ball for vertex
+                  $s$ high enough, the other balls that get pulled up along with
+                  it are precisely the vertices reachable from $s$. And to find
+                  their distances from $s$, you need only measure how far below
+                  $s$ they hang. In Figure 4.2 for example, vertex $B$ is at
+                  distance 2 from $S$, and there are two shortest paths to it.
+                  When $S$ is held up, the strings along each of these paths
+                  become taut. On the other hand, edge ($D, E$) plays no role in
+                  any shortest path and therefore remains slack.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This section uses a powerful physical analogy to make the
+                abstract concept of shortest paths intuitive. If you imagine a
+                graph built like a mobile with vertices as weights and edges as
+                strings of equal length, lifting one vertex <code>s</code> will
+                cause the strings along the shortest paths to become taut. The
+                other nodes will naturally settle into layers based on their
+                distance from <code>s</code>.
+              </p>
+            </div>
+          </div>
+        </section>
 
-                        </p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This paragraph sets up the motivation for a new type of search algorithm. It acknowledges that Depth-First Search (DFS) is effective at finding which nodes are reachable and
-                            provides <em>a</em> path to them. However, it highlights a key weakness: the path found by DFS is often not the shortest possible path. The primary goal of this chapter,
-                            therefore, is to find algorithms that are specifically designed to find the <strong>shortest paths</strong>.</p>
-                    </div>
-                </div>
+        <section id="breadth-first-search">
+          <h2>4.2 Breadth-first search</h2>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>Defining Distance in a Graph</strong></p>
-                        <p class="original-text">
-                            <em>Path lengths allow us to talk quantitatively about the extent to which different vertices of a graph are separated from each other:</em>
-                        </p>
-                        <blockquote><em>The distance between two nodes is the length of the shortest path between them.</em></blockquote>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This provides the formal definition of "distance" in the context of graph theory. It's not a physical distance, but rather the minimum number of edges one must traverse to
-                            get from a starting node to a destination node.</p>
-                    </div>
-                </div>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p>
+                <strong>The Core Idea of BFS: A Layer-by-Layer Search</strong>
+              </p>
+              <p class="original-text">
+                <em
+                  >In Figure 4.2, the lifting of $s$ partitions the graph into
+                  layers: $s$ itself, the nodes at distance 1 from it, the nodes
+                  at distance 2 from it, and so on. A convenient way to compute
+                  distances from $s$ to the other vertices is to proceed layer
+                  by layer. Once we have picked out the nodes at distance $0, 1,
+                  2, \ldots, d$, the ones at $d+1$ are easily determined: they
+                  are precisely the as-yet-unseen nodes that are adjacent to the
+                  layer at distance $d$.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph translates the physical model into an algorithmic
+                strategy. The key idea is to explore the graph in expanding
+                layers of distance from the start node <code>s</code>: Layer 0
+                is <code>s</code>, Layer 1 are its neighbors, Layer 2 are their
+                unvisited neighbors, and so on. This guarantees that you
+                discover all nodes at a distance $d$ before you discover any
+                nodes at a distance $d+1$.
+              </p>
+            </div>
+          </div>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>An Intuitive Model for Shortest Paths</strong></p>
-                        <p class="original-text">
-                            <em>To get a concrete feel for this notion, consider a physical realization of a graph that has a ball for each vertex and a piece of string for each edge. If you lift the
-                                ball for vertex $s$ high enough, the other balls that get pulled up along with it are precisely the vertices reachable from $s$. And to find their distances from $s$,
-                                you need only measure how far below $s$ they hang. In Figure 4.2 for example, vertex $B$ is at distance 2 from $S$, and there are two shortest paths to it. When $S$ is
-                                held up, the strings along each of these paths become taut. On the other hand, edge ($D, E$) plays no role in any shortest path and therefore remains slack.</em>
-                        </p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This section uses a powerful physical analogy to make the abstract concept of shortest paths intuitive. If you imagine a graph built like a mobile with vertices as weights
-                            and edges as strings of equal length, lifting one vertex <code>s</code> will cause the strings along the shortest paths to become taut. The other nodes will naturally
-                            settle into layers based on their distance from <code>s</code>.</p>
-                    </div>
-                </div>
-            </section>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Right Tool for the Job: The Queue</strong></p>
+              <p class="original-text">
+                <em
+                  >Breadth-first search (BFS) directly implements this simple
+                  reasoning (Figure 4.3). Initially the queue $Q$ consists only
+                  of $s$, the one node at distance 0. And for each subsequent
+                  distance $d=1, 2, 3, \ldots$, there is a point in time at
+                  which $Q$ contains all the nodes at distance $d$ and nothing
+                  else. As these nodes are processed (ejected off the front of
+                  the queue), their as-yet-unseen neighbors are injected into
+                  the end of the queue.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph explains how a <strong>queue</strong> data
+                structure, which is <strong>First-In, First-Out (FIFO)</strong>,
+                is the perfect tool to implement the layer-by-layer strategy.
+                Because you add all nodes of the next layer to the back of the
+                queue before processing them, the FIFO nature ensures that you
+                finish one layer completely before starting the next.
+              </p>
+            </div>
+          </div>
 
-            <section id="breadth-first-search">
-                <h2>4.2 Breadth-first search</h2>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The BFS Tree: A Shortest-Path Tree</strong></p>
+              <p class="original-text">
+                <em
+                  >Let's try out this algorithm on our earlier example (Figure
+                  4.1) to confirm that it does the right thing. If $S$ is the
+                  starting point and the nodes are ordered alphabetically, they
+                  get visited in the sequence shown in Figure 4.4. The
+                  breadth-first search tree, on the right, contains the edges
+                  through which each node is initially discovered. Unlike the
+                  DFS tree we saw earlier, it has the property that all its
+                  paths from $S$ are the shortest possible. It is therefore a
+                  shortest-path tree.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                A BFS exploration creates a tree structure based on which edges
+                were used to discover new nodes. The BFS tree has a special,
+                powerful property: the path from the starting node
+                <code>S</code> to any other node <code>v</code> in the BFS tree
+                is guaranteed to be a shortest path in the original graph.
+              </p>
+            </div>
+          </div>
+        </section>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>The Core Idea of BFS: A Layer-by-Layer Search</strong></p>
-                        <p class="original-text">
-                            <em>In Figure 4.2, the lifting of $s$ partitions the graph into layers: $s$ itself, the nodes at distance 1 from it, the nodes at distance 2 from it, and so on. A
-                                convenient way to compute distances from $s$ to the other vertices is to proceed layer by layer. Once we have picked out the nodes at distance $0, 1, 2, \ldots, d$, the
-                                ones at $d+1$ are easily determined: they are precisely the as-yet-unseen nodes that are adjacent to the layer at distance $d$.</em>
-                        </p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This paragraph translates the physical model into an algorithmic strategy. The key idea is to explore the graph in expanding layers of distance from the start node
-                            <code>s</code>: Layer 0 is <code>s</code>, Layer 1 are its neighbors, Layer 2 are their unvisited neighbors, and so on. This guarantees that you discover all nodes at a
-                            distance $d$ before you discover any nodes at a distance $d+1$.
-                        </p>
-                    </div>
-                </div>
+        <section id="correctness-and-efficiency">
+          <h2>Correctness and efficiency</h2>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>The Right Tool for the Job: The Queue</strong></p>
-                        <p class="original-text">
-                            <em>Breadth-first search (BFS) directly implements this simple reasoning (Figure 4.3). Initially the queue $Q$ consists only of $s$, the one node at distance 0. And for
-                                each subsequent distance $d=1, 2, 3, \ldots$, there is a point in time at which $Q$ contains all the nodes at distance $d$ and nothing else. As these nodes are
-                                processed (ejected off the front of the queue), their as-yet-unseen neighbors are injected into the end of the queue.</em>
-                        </p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This paragraph explains how a <strong>queue</strong> data structure, which is <strong>First-In, First-Out (FIFO)</strong>, is the perfect tool to implement the
-                            layer-by-layer strategy. Because you add all nodes of the next layer to the back of the queue before processing them, the FIFO nature ensures that you finish one layer
-                            completely before starting the next.</p>
-                    </div>
-                </div>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The BFS Algorithm and its Correctness</strong></p>
+              <p class="original-text">
+                <em
+                  >We have developed the basic intuition behind breadth-first
+                  search. In order to check that the algorithm works correctly,
+                  we need to make sure that it faithfully executes this
+                  intuition. What we expect, precisely, is that...</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This section presents the pseudocode for the BFS algorithm and
+                the formal properties for a proof of its correctness.
+              </p>
+            </div>
+          </div>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>The BFS Tree: A Shortest-Path Tree</strong></p>
-                        <p class="original-text">
-                            <em>Let's try out this algorithm on our earlier example (Figure 4.1) to confirm that it does the right thing. If $S$ is the starting point and the nodes are ordered
-                                alphabetically, they get visited in the sequence shown in Figure 4.4. The breadth-first search tree, on the right, contains the edges through which each node is
-                                initially discovered. Unlike the DFS tree we saw earlier, it has the property that all its paths from $S$ are the shortest possible. It is therefore a shortest-path
-                                tree.</em>
-                        </p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>A BFS exploration creates a tree structure based on which edges were used to discover new nodes. The BFS tree has a special, powerful property: the path from the starting
-                            node <code>S</code> to any other node <code>v</code> in the BFS tree is guaranteed to be a shortest path in the original graph.</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="correctness-and-efficiency">
-                <h2>Correctness and efficiency</h2>
-
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>The BFS Algorithm and its Correctness</strong></p>
-                        <p class="original-text">
-                            <em>We have developed the basic intuition behind breadth-first search. In order to check that the algorithm works correctly, we need to make sure that it faithfully
-                                executes this intuition. What we expect, precisely, is that...</em>
-                        </p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This section presents the pseudocode for the BFS algorithm and the formal properties for a proof of its correctness.</p>
-                    </div>
-                </div>
-
-                <pre class="pseudocode" id="bfs-code">
+          <pre class="pseudocode" id="bfs-code">
                 \begin{algorithm}
                 \caption{Breadth‑First Search}
                 \begin{algorithmic}   
@@ -198,92 +307,161 @@
                 \EndProcedure
                 \end{algorithmic}
                 \end{algorithm}
-                </pre>
+                </pre
+          >
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>Proving Correctness: A Layer-by-Layer Invariant</strong></p>
-                        <blockquote><em>For each $d=0,1,2, \ldots$, there is a moment at which (1) all nodes at distance $\leq d$ from $s$ have their distances correctly set; (2) all other nodes have
-                                their distances set to $\infty$; and (3) the queue contains exactly the nodes at distance $d$.</em></blockquote>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This paragraph lays out the formal properties for a proof by induction on the correctness of BFS. It states that at the start of processing each "layer" $d$, an invariant
-                            holds where all previous layers are finalized, all future layers are undiscovered, and the queue contains exactly the nodes of the current layer.</p>
-                    </div>
-                </div>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p>
+                <strong>Proving Correctness: A Layer-by-Layer Invariant</strong>
+              </p>
+              <blockquote>
+                <em
+                  >For each $d=0,1,2, \ldots$, there is a moment at which (1)
+                  all nodes at distance $\leq d$ from $s$ have their distances
+                  correctly set; (2) all other nodes have their distances set to
+                  $\infty$; and (3) the queue contains exactly the nodes at
+                  distance $d$.</em
+                >
+              </blockquote>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph lays out the formal properties for a proof by
+                induction on the correctness of BFS. It states that at the start
+                of processing each "layer" $d$, an invariant holds where all
+                previous layers are finalized, all future layers are
+                undiscovered, and the queue contains exactly the nodes of the
+                current layer.
+              </p>
+            </div>
+          </div>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>BFS Runtime Analysis</strong></p>
-                        <p class="original-text"><em>The overall running time of this algorithm is linear, $O(|V|+|E|)$, for exactly the same reasons as depth-first search. Each vertex is put on the
-                                queue exactly once... Over the course of execution, this loop looks at each edge once (in directed graphs) or twice (in undirected graphs), and therefore takes $O(|E|)$
-                                time.</em></p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>The efficiency of BFS is identical to DFS. Here is the step-by-step derivation:</p>
-                        <ul>
-                            <li><strong>Work on Vertices:</strong> Each vertex is enqueued and dequeued exactly once. This is $O(|V|)$ work.</li>
-                            <li><strong>Work on Edges:</strong> The adjacency list of every vertex is scanned once. This means every edge is examined (once for directed graphs, twice for undirected).
-                                This is $O(|E|)$ work.</li>
-                            <li><strong>Overall Runtime:</strong> Total Time = (Work on Vertices) + (Work on Edges) = <strong>$O(|V| + |E|)$</strong>.</li>
-                        </ul>
-                    </div>
-                </div>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>BFS Runtime Analysis</strong></p>
+              <p class="original-text">
+                <em
+                  >The overall running time of this algorithm is linear,
+                  $O(|V|+|E|)$, for exactly the same reasons as depth-first
+                  search. Each vertex is put on the queue exactly once... Over
+                  the course of execution, this loop looks at each edge once (in
+                  directed graphs) or twice (in undirected graphs), and
+                  therefore takes $O(|E|)$ time.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                The efficiency of BFS is identical to DFS. Here is the
+                step-by-step derivation:
+              </p>
+              <ul>
+                <li>
+                  <strong>Work on Vertices:</strong> Each vertex is enqueued and
+                  dequeued exactly once. This is $O(|V|)$ work.
+                </li>
+                <li>
+                  <strong>Work on Edges:</strong> The adjacency list of every
+                  vertex is scanned once. This means every edge is examined
+                  (once for directed graphs, twice for undirected). This is
+                  $O(|E|)$ work.
+                </li>
+                <li>
+                  <strong>Overall Runtime:</strong> Total Time = (Work on
+                  Vertices) + (Work on Edges) = <strong>$O(|V| + |E|)$</strong>.
+                </li>
+              </ul>
+            </div>
+          </div>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>Comparing DFS and BFS</strong></p>
-                        <p class="original-text"><em>Now that we have both BFS and DFS before us: how do their exploration styles compare? Depth-first search makes deep incursions into a graph...
-                                Breadth-first search makes sure to visit vertices in increasing order of their distance... And it is achieved using almost exactly the same code as DFS—but with a queue
-                                in place of a stack.</em></p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This provides a high-level comparison of the two search strategies.</p>
-                        <ul>
-                            <li><strong>DFS:</strong> Explores deep and narrow like a maze-solver, using a <strong>stack</strong> (LIFO).</li>
-                            <li><strong>BFS:</strong> Explores broad and shallow like a wave on water, using a <strong>queue</strong> (FIFO). It finds shortest paths in terms of the number of edges.
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Comparing DFS and BFS</strong></p>
+              <p class="original-text">
+                <em
+                  >Now that we have both BFS and DFS before us: how do their
+                  exploration styles compare? Depth-first search makes deep
+                  incursions into a graph... Breadth-first search makes sure to
+                  visit vertices in increasing order of their distance... And it
+                  is achieved using almost exactly the same code as DFS—but with
+                  a queue in place of a stack.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This provides a high-level comparison of the two search
+                strategies.
+              </p>
+              <ul>
+                <li>
+                  <strong>DFS:</strong> Explores deep and narrow like a
+                  maze-solver, using a <strong>stack</strong> (LIFO).
+                </li>
+                <li>
+                  <strong>BFS:</strong> Explores broad and shallow like a wave
+                  on water, using a <strong>queue</strong> (FIFO). It finds
+                  shortest paths in terms of the number of edges.
+                </li>
+              </ul>
+            </div>
+          </div>
 
-                <div class="explanation-block">
-                    <div class="original-text-container">
-                        <p><strong>A Note on Scope</strong></p>
-                        <p class="original-text"><em>Also notice one stylistic difference from DFS: since we are only interested in distances from $s$, we do not restart the search in other connected
-                                components. Nodes not reachable from $s$ are simply ignored.</em></p>
-                    </div>
-                    <div class="explanation-text">
-                        <p>This final paragraph notes that the <code>bfs(G, s)</code> procedure is designed to find distances from a single source <code>s</code> and naturally ignores other
-                            disconnected components, unlike the full <code>dfs(G)</code> wrapper which was designed to visit every single node in the entire graph.</p>
-                    </div>
-                </div>
-            </section>
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>A Note on Scope</strong></p>
+              <p class="original-text">
+                <em
+                  >Also notice one stylistic difference from DFS: since we are
+                  only interested in distances from $s$, we do not restart the
+                  search in other connected components. Nodes not reachable from
+                  $s$ are simply ignored.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This final paragraph notes that the
+                <code>bfs(G, s)</code> procedure is designed to find distances
+                from a single source <code>s</code> and naturally ignores other
+                disconnected components, unlike the full
+                <code>dfs(G)</code> wrapper which was designed to visit every
+                single node in the entire graph.
+              </p>
+            </div>
+          </div>
+        </section>
 
-            <section id="comments">
-                <script src="https://utteranc.es/client.js" repo="COD1995/ml-meta" issue-term="pathname" label="comment" theme="github-light" crossorigin="anonymous" async>
-                </script>
-            </section>
-        </main>
-
+        <section id="comments">
+          <script
+            src="https://utteranc.es/client.js"
+            repo="COD1995/ml-meta"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async
+          ></script>
+        </section>
+      </main>
     </div>
 
     <script src="../../../assets/js/main.js" defer></script>
 
     <script src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            // Every <pre class="pseudocode"> now gets numbered lines
-            pseudocode.renderClass('pseudocode', {
-                lineNumber: true,          // turn line numbers on
-                lineNumberPunc: '.',       // optional: use “1.” instead of “1:”
-                indentSize: '1.4em'        // optional: tweak indent
-            });
-
-            // Re‑run MathJax because new TeX was just injected
-            window.MathJax?.typeset();
+      window.addEventListener("DOMContentLoaded", () => {
+        // Every <pre class="pseudocode"> now gets numbered lines
+        pseudocode.renderClass("pseudocode", {
+          lineNumber: true, // turn line numbers on
+          lineNumberPunc: ".", // optional: use “1.” instead of “1:”
+          indentSize: "1.4em", // optional: tweak indent
         });
-    </script>
-</body>
 
+        // Re‑run MathJax because new TeX was just injected
+        window.MathJax?.typeset();
+      });
+    </script>
+  </body>
 </html>

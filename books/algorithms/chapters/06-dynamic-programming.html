@@ -83,9 +83,348 @@
 
       <!-- ───────────── Main article ───────────── -->
       <main class="content">
-        <h1>Chapter 6: Dynamic Programming</h1>
+        <h1>Chapter 6: Dynamic Programming</h1>
 
-        <!-- … chapter content … -->
+        <section id="longest-increasing-subsequences">
+          <h2>6.2 Longest increasing subsequences</h2>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Defining the Problem</strong></p>
+              <p class="original-text">
+                <em
+                  >In the longest increasing subsequence problem, the input is a
+                  sequence of numbers $a_{1}, \ldots, a_{n}$. A subsequence is
+                  any subset of these numbers taken in order, of the form
+                  $a_{i_{1}}, a_{i_{2}}, \ldots, a_{i_{k}}$ where $1 \leq i_{1}
+                  < i_{2} < \cdots < i_{k} \leq n$, and an increasing
+                  subsequence is one in which the numbers are getting strictly
+                  larger. The task is to find the increasing subsequence of
+                  greatest length. For instance, the longest increasing
+                  subsequence of $5,2,8,6,3,6,9,7$ is $2,3,6,9$:</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph defines the **Longest Increasing Subsequence
+                (LIS)** problem. It's important to distinguish between a
+                "substring" (which must be contiguous) and a "subsequence"
+                (which can have gaps). For the sequence `5, 2, 8, 6`, the
+                subsequence `2, 6` is valid because 2 appears before 6 in the
+                original sequence. The goal is to find the longest such
+                subsequence where the values are strictly increasing.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p>
+                <strong>A New Perspective: From Sequences to Graphs</strong>
+              </p>
+              <p class="original-text">
+                <em>
+                  In this example, the arrows denote transitions between
+                  consecutive elements of the optimal solution. More generally,
+                  to better understand the solution space, let's create a graph
+                  of all permissible transitions: establish a node $i$ for each
+                  element $a_{i}$, and add directed edges $(i, j)$ whenever it
+                  is possible for $a_{i}$ and $a_{j}$ to be consecutive elements
+                  in an increasing subsequence, that is, whenever $i < j$ and
+                  $a_{i} < a_{j}$ (Figure 6.2).
+                </em>
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This is a crucial step in finding a solution: transforming the
+                problem into a different domain. Here, the sequence problem is
+                converted into a graph problem. Each number in the sequence
+                becomes a node in a graph. A directed edge is drawn from node
+                `i` to node `j` only if `j` can follow `i` in an increasing
+                subsequence (meaning `j` appears after `i` in the sequence and
+                has a larger value).
+              </p>
+            </div>
+          </div>
+
+          <figure>
+            <img
+              src="../../../assets/images/algorithms/chpt_6_imgs/figure-6-2.png"
+              alt="A directed acyclic graph representing the LIS problem."
+              width="700"
+            />
+            <figcaption>
+              Figure 6.2: The dag of increasing subsequences.
+            </figcaption>
+          </figure>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p>
+                <strong>The Key Insight: LIS as Longest Path in a DAG</strong>
+              </p>
+              <p class="original-text">
+                <em
+                  >Notice that (1) this graph $G=(V, E)$ is a dag, since all
+                  edges $(i, j)$ have $i < j$, and (2) there is a one-to-one
+                  correspondence between increasing subsequences and paths in
+                  this dag. Therefore, our goal is simply to find the longest
+                  path in the dag!</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph reveals the solution path. The graph we
+                constructed is a **Directed Acyclic Graph (DAG)** because edges
+                only point from smaller indices to larger ones, so it's
+                impossible to form a cycle. Crucially, any path through this DAG
+                corresponds exactly to a valid increasing subsequence.
+                Therefore, the LIS problem has now been simplified to finding
+                the **longest path in a DAG**—a well-understood graph problem.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Dynamic Programming Algorithm</strong></p>
+              <p class="original-text">
+                <em
+                  >Here is the algorithm: $$ \begin{aligned} & \text { for }
+                  j=1,2, \ldots, n \text { : } \\ & \quad L(j)=1+\max \{L(i):(i,
+                  j) \in E\} \\ & \text { return } \max _{j} L(j) \end{aligned}
+                  $$ $L(j)$ is the length of the longest path—the longest
+                  increasing subsequence—ending at $j$...</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This presents the core dynamic programming algorithm. Let's
+                break down the logic:
+              </p>
+              <ul>
+                <li>
+                  We define $L(j)$ as the length of the longest increasing
+                  subsequence that **ends at position** $j$.
+                </li>
+                <li>
+                  We iterate from $j=1$ to $n$, calculating each $L(j)$ in
+                  order.
+                </li>
+                <li>
+                  To calculate $L(j)$, we look at all previous nodes $i$ that
+                  could connect to $j$ (i.e., where $i < j$ and $a_i < a_j$). We
+                  find the one that has the longest path ending at it (the
+                  maximum $L(i)$ value).
+                </li>
+                <li>
+                  The length of the path to $j$ is then $1$ (for $j$ itself)
+                  plus the length of the best path leading into it.
+                </li>
+                <li>
+                  The final answer is the maximum value in our `L` array, since
+                  the longest subsequence could end at any position.
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Essence of Dynamic Programming</strong></p>
+              <p class="original-text">
+                <em
+                  >This is dynamic programming. In order to solve our original
+                  problem, we have defined a collection of subproblems $\{L(j):
+                  1 \leq j \leq n\}$ with the following key property...: ${
+                  }^{(*)}$ There is an ordering on the subproblems, and a
+                  relation that shows how to solve a subproblem given the
+                  answers to "smaller" subproblems...</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph explicitly defines why the previous algorithm is
+                a perfect example of dynamic programming. It satisfies the key
+                properties:
+              </p>
+              <ol>
+                <li>
+                  <strong>A collection of subproblems:</strong> Our subproblems
+                  are "What is the LIS ending at position $j$?" for all $j$ from
+                  1 to $n$.
+                </li>
+                <li>
+                  <strong>An ordering:</strong> We solve the subproblems in a
+                  specific, linear order: for $L(1)$, then $L(2)$, then $L(3)$,
+                  and so on.
+                </li>
+                <li>
+                  <strong>A recurrence relation:</strong> To solve for a
+                  subproblem $L(j)$, we only rely on the answers to "smaller"
+                  subproblems—those $L(i)$ where $i < j$, which we have already
+                  calculated and stored.
+                </li>
+              </ol>
+              <p>
+                This "bottom-up" approach of solving smaller pieces first and
+                using their results to build up to the final answer is the
+                hallmark of dynamic programming.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Efficiency and Path Reconstruction</strong></p>
+              <p class="original-text">
+                <em
+                  >How long does this step take? It requires the predecessors of
+                  $j$ to be known... The computation of $L(j)$ then takes time
+                  proportional to the indegree of $j$, giving an overall running
+                  time linear in $|E|$. This is at most $O\left(n^{2}\right)$...
+                  we can recover the subsequence itself... with the same
+                  bookkeeping device we used for shortest paths... While
+                  computing $L(j)$, we should also note down
+                  $\operatorname{prev}(j)$, the next-to-last node on the longest
+                  path to $j$.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                The runtime of this algorithm is analyzed. For each element $j$,
+                we look at all previous elements $i < j$. In the worst case (a
+                sorted array), every previous element is a valid predecessor.
+                This results in a nested loop structure, giving a total runtime
+                of $O(n^2)$. To reconstruct the actual subsequence (not just its
+                length), we can use a `prev` array, just as in Dijkstra's
+                algorithm. When we find the best predecessor `i` for `j`, we
+                store it: `prev[j] = i`. After the `L` array is full, we can
+                find the max value, start from that index, and follow the `prev`
+                pointers backward to find the path.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="recursion-vs-dp">
+          <h2>Recursion? No, thanks.</h2>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Why Not Just Use Recursion?</strong></p>
+              <p class="original-text">
+                <em
+                  >...the formula for $L(j)$ also suggests an alternative,
+                  recursive algorithm. Wouldn't that be even simpler? Actually,
+                  recursion is a very bad idea: the resulting procedure would
+                  require exponential time! To see why, suppose that the dag
+                  contains edges $(i, j)$ for all $i < j$... the formula for
+                  subproblem $L(j)$ becomes $L(j)=1+\max \{L(1), L(2), \ldots,
+                  L(j-1)\}$. The following figure unravels the recursion for
+                  $L(5)$. Notice that the same subproblems get solved over and
+                  over again!</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This section addresses a common question: if we have a
+                recurrence relation, why not just write a simple recursive
+                function? The text explains this is a terrible idea for dynamic
+                programming problems. A naive recursive implementation would
+                re-calculate the same subproblems an exponential number of
+                times. For example, to calculate `L(5)`, it would call `L(4)`,
+                `L(3)`, `L(2)`, and `L(1)`. To calculate `L(4)`, it would again
+                call `L(3)`, `L(2)`, and `L(1)`. The redundant computations
+                explode exponentially.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Divide-and-Conquer vs. Dynamic Programming</strong></p>
+              <p class="original-text">
+                <em
+                  >Then why did recursion work so well with divide-and-conquer?
+                  The key point is that in divide-and-conquer, a problem is
+                  expressed in terms of subproblems that are substantially
+                  smaller... In contrast, in a typical dynamic programming
+                  formulation, a problem is reduced to subproblems that are only
+                  slightly smaller... However, it turns out that most of these
+                  nodes are repeats... Efficiency is therefore obtained by
+                  explicitly enumerating the distinct subproblems and solving
+                  them in the right order.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This is a critical distinction between two major algorithmic
+                paradigms:
+              </p>
+              <ul>
+                <li>
+                  <strong>Divide and Conquer (e.g., Mergesort):</strong> Works
+                  well with recursion because it breaks a problem into a few,
+                  *independent* subproblems that are much smaller (e.g., half
+                  the size). The subproblems don't overlap.
+                </li>
+                <li>
+                  <strong>Dynamic Programming (e.g., LIS):</strong> Is needed
+                  when the subproblems are only slightly smaller (e.g., size
+                  `n-1` for a problem of size `n`) and are heavily
+                  *overlapping*. DP's power comes from using a table (or array)
+                  to store the results of subproblems, ensuring each one is
+                  calculated only once.
+                </li>
+              </ul>
+            </div>
+            <pre class="pseudocode" id="bfs-code">
+                \begin{algorithm}
+                \caption{Breadth‑First Search}
+                \begin{algorithmic}   
+                \Procedure{BFS}{$G, s$}
+                    \ForAll{$u \in V$}
+                    \State $\text{dist}(u) \gets \infty$
+                    \EndFor
+                    \State $\text{dist}(s) \gets 0$
+                    \State $Q \gets [s]$
+                    \While{$Q$ is not empty}
+                    \State $u \gets \text{eject}(Q)$
+                    \ForAll{$(u,v) \in E$}
+                        \If{$\text{dist}(v)=\infty$}
+                        \State $\text{inject}(Q,v)$
+                        \State $\text{dist}(v) \gets \text{dist}(u)+1$
+                        \EndIf
+                    \EndFor
+                    \EndWhile
+                \EndProcedure
+                \end{algorithmic}
+                \end{algorithm}
+                </pre
+            >
+          </div>
+        </section>
+
+        <section id="comments">
+          <script
+            src="https://utteranc.es/client.js"
+            repo="COD1995/ml-meta"
+            issue-term="pathname"
+            label="comment"
+            theme="github-light"
+            crossorigin="anonymous"
+            async
+          ></script>
+        </section>
       </main>
 
       <footer

@@ -29,6 +29,14 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css"
     />
+    <!-- Prism core + GitHub‑like theme -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism.css"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-python.min.js"></script>
   </head>
 
   <body>
@@ -107,14 +115,20 @@
             </div>
             <div class="explanation-text">
               <p>
-                This paragraph defines the **Longest Increasing Subsequence
-                (LIS)** problem. It's important to distinguish between a
-                "substring" (which must be contiguous) and a "subsequence"
-                (which can have gaps). For the sequence `5, 2, 8, 6`, the
-                subsequence `2, 6` is valid because 2 appears before 6 in the
+                This paragraph defines the
+                <strong>Increasing Subsequence (LIS) problem</strong>. It's
+                important to distinguish between a "substring" (which must be
+                contiguous) and a "subsequence" (which can have gaps). For the
+                sequence <code>5, 2, 8, 6</code>, the subsequence
+                <code>2, 6</code> is valid because 2 appears before 6 in the
                 original sequence. The goal is to find the longest such
                 subsequence where the values are strictly increasing.
               </p>
+
+              <pre class="ln"><code class="language-python">
+              for i in range(n):
+                  print(A[i])
+              </code></pre>
             </div>
           </div>
 

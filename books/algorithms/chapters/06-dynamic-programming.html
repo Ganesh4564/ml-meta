@@ -230,13 +230,16 @@
             <div class="original-text-container">
               <p><strong>The Single-Pass Algorithm</strong></p>
               <pre class="pseudocode" id="dag-shortest-path">
-                \begin{algorithmic}
-                    \State initialize all $\dist(\cdot)$ values to $\infty$
-                    \State $\dist(s) \gets 0$
-                    \For{each $v \in V \setminus \{s\}$, in linearized order}
-                        \State $\dist(v) \gets \min_{(u,v) \in E} \{\dist(u) + l(u,v)\}$
-                    \EndFor
-                \end{algorithmic}
+                \begin{algorithm}
+                    \caption{Shortest paths in a dag.}
+                    \begin{algorithmic}
+                        \State initialize all $dist(\cdot)$ values to $\infty$
+                        \State $dist(s) \gets 0$
+                        \For{each $v \in V \setminus \{s\}$, in linearized order}
+                            \State $dist(v) \gets \min_{(u,v) \in E} \{dist(u) + l(u,v)\}$
+                        \EndFor
+                    \end{algorithmic}
+                \end{algorithm}
                 </pre
               >
             </div>

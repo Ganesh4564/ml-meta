@@ -3,13 +3,11 @@
  * Grid layout, collapsible sidebar (desktop) + drawer (mobile)
  * ---------------------------------------------------------- */
 
-/* ---------- Layout variables -------------------------------- */
 :root {
-  --sb-open: 350px; /* full width  */
-  --sb-closed: 56px; /* collapsed   */
+  --sb-open: 350px;
+  --sb-closed: 56px;
 }
 
-/* 1 ── Grid --------------------------------------------------- */
 .layout {
   display: grid;
   grid-template-columns: var(--sb-open) 1fr;
@@ -19,15 +17,14 @@
   transition: grid-template-columns 0.3s ease;
 }
 
-/* 2 ── Sidebar ------------------------------------------------ */
+/* ---------- Sidebar --------------------------------------- */
 .sidebar {
   width: var(--sb-open);
   background: #fff;
-  border-right: 1px solid #e1e4e8;
-  box-shadow: inset -1px 0 0 #e1e4e8;
+  border-right: 1px solid var(--c-gray-200);
+  box-shadow: inset -1px 0 0 var(--c-gray-200);
   padding: 1.5rem 1.5rem 2rem;
   font-size: 0.95rem;
-
   position: sticky;
   top: 0;
   height: 100vh;
@@ -35,24 +32,19 @@
   z-index: 90;
   transition: width 0.3s ease;
 }
-
-/* Header row inside sidebar */
 .sidebar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: -0.25rem 0 1.25rem;
 }
-.sidebar-header .home-link {
+.home-link {
   font-weight: 600;
-  color: #0366d6;
-  text-decoration: none;
+  color: var(--c-blue-600);
 }
-.sidebar-header .home-link:hover {
-  color: #044289;
+.home-link:hover {
+  color: var(--c-blue-700);
 }
-
-/* Hamburger button */
 .sidebar-toggle {
   width: 40px;
   height: 40px;
@@ -61,64 +53,58 @@
   justify-content: center;
   font-size: 1.25rem;
   background: #fff;
-  border: 1px solid #d0d7de;
+  border: 1px solid var(--c-gray-200);
   border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: background 0.2s, box-shadow 0.2s;
 }
 .sidebar-toggle:hover {
   background: #f6f8fa;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
-
-/* Content wrapper that fades when collapsed */
 .sidebar-inner {
   transition: opacity 0.2s ease;
 }
 
-/* 3 ── Nav styling (unchanged) -------------------------------- */
+/* ---------- Nav layout ------------------------------------ */
 .sidebar nav > ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.sidebar .book-nav li + li {
+.book-nav li + li {
   margin-top: 0.5rem;
 }
 
 .sidebar a {
   display: block;
-  color: #0366d6;
-  text-decoration: none;
+  color: var(--c-blue-600);
   padding: 0.25rem 0;
   transition: color 0.2s;
 }
 .sidebar a:hover {
-  color: #044289;
+  color: var(--c-blue-700);
 }
 .sidebar a.active {
   color: #005cc5;
   font-weight: 600;
 }
 
-/* chapter accordion */
 .chapter-details details {
   margin-bottom: 1rem;
 }
-.chapter-details details > summary {
+.chapter-details summary {
   display: flex;
   align-items: center;
   cursor: pointer;
   font-weight: 600;
-  line-height: 1.35;
 }
-.chapter-details details > summary::before {
+.chapter-details summary::before {
   content: "▶";
   margin-right: 0.5rem;
   transition: transform 0.2s;
 }
-.chapter-details details[open] > summary::before {
+.chapter-details details[open] summary::before {
   transform: rotate(90deg);
 }
 .chapter-details summary::-webkit-details-marker,
@@ -126,7 +112,6 @@
   display: none;
 }
 
-/* TOC list */
 .toc-list {
   list-style: none;
   margin: 0.5rem 0;
@@ -140,16 +125,19 @@
 }
 .toc-list a {
   font-size: 0.93rem;
-  color: #0366d6;
+  color: var(--c-blue-600);
 }
 .toc-list a:hover {
   text-decoration: underline;
 }
 
-/* 4 ── Collapse behaviour (desktop) --------------------------- */
+/* ---------- Collapse (desktop) ---------------------------- */
 body.sidebar-collapsed .sidebar {
   width: var(--sb-closed);
+  padding: 1.5rem 8px 2rem;
+  overflow-x: hidden; /* ✅ Add this line */
 }
+
 body.sidebar-collapsed .layout {
   grid-template-columns: var(--sb-closed) 1fr;
 }
@@ -157,8 +145,18 @@ body.sidebar-collapsed .sidebar-inner {
   opacity: 0;
   pointer-events: none;
 }
+body.sidebar-collapsed .home-link {
+  display: none;
+}
+body.sidebar-collapsed .sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 57px; /* Matches the default header height */
+  margin: -0.25rem 0 1.25rem; /* Matches default margins */
+}
 
-/* 5 ── Main content panel ------------------------------------- */
+/* ---------- Main article pane ----------------------------- */
 .content {
   background: #fff;
   padding: 2rem;
@@ -167,27 +165,22 @@ body.sidebar-collapsed .sidebar-inner {
   max-width: clamp(800px, 70vw, 1200px);
   margin: 0 auto;
   line-height: 1.6;
-  min-width: 0;
 }
 
-/* 6 ── Comments section --------------------------------------- */
-#comments {
-  margin-top: 2.5rem;
-  border-top: 1px solid #e1e4e8;
-  padding-top: 1.5rem;
+/* This is the correct approach */
+.content pre {
+  margin-bottom: 1.5rem;
 }
 
-/* 7 ── Mobile drawer (≤768px) -------------------------------- */
+/* ---------- Mobile drawer --------------------------------- */
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
-  } /* article full width */
-
+  }
   .sidebar {
     position: fixed;
     left: 0;
     top: 0;
-    height: 100vh;
     width: 72vw;
     max-width: 280px;
     transform: translateX(-100%);
@@ -199,8 +192,6 @@ body.sidebar-collapsed .sidebar-inner {
   body.sidebar-collapsed {
     overflow: hidden;
   }
-
-  /* keep hamburger over drawer */
   .sidebar-toggle {
     position: fixed;
     z-index: 100;
@@ -211,129 +202,42 @@ body.sidebar-collapsed .sidebar-inner {
   }
 }
 
-/* ── keep hamburger visible when collapsed ─────────────────── */
-body.sidebar-collapsed .sidebar {
-  padding: 0.5rem;
-} /* slimmer */
-body.sidebar-collapsed .sidebar-header {
-  justify-content: center; /* centre btn */
-}
-body.sidebar-collapsed .home-link {
-  display: none;
-} /* hide text */
-
-body.sidebar-collapsed .sidebar-toggle {
-  margin: 0; /* no leftover spacing */
-}
-
-/* 8 ── Explanation blocks (unchanged) ------------------------- */
+/* ---------- Explanation blocks ---------------------------- */
 .explanation-block {
   margin-bottom: 2rem;
 }
 .original-text-container {
   background: #f6f8fa;
-  border: 1px solid #e1e4e8;
+  border: 1px solid var(--c-gray-200);
   border-radius: 6px;
   padding: 1rem;
   margin-bottom: 1rem;
-}
-.original-text-container p:first-child {
-  margin-top: 0;
-}
-.original-text-container p:last-child {
-  margin-bottom: 0;
 }
 p.original-text {
   font-style: italic;
   color: #333;
 }
 
-.explanation-text ul,
-.explanation-text ol {
-  padding-left: 1.5rem;
-  margin: 1rem 0;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   12 │ Code formatting
-   ---------------------------------------------------------- */
-
-/* Inline code  <code>like_this()</code> */
-code {
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.94em;
-  background: #f6f8fa;
-  border: 1px solid #d0d7de;
-  border-radius: 4px;
-  padding: 0.15em 0.4em;
-  color: #24292e;
-  white-space: pre-wrap;
-}
-
-/* Block code  <pre><code>…</code></pre> */
-pre {
-  background: #f6f8fa;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  padding: 1rem 1.25rem;
-  margin: 1.5rem 0;
-  overflow: auto; /* horizontal scroll if long lines */
-  line-height: 1.45;
-}
-
-pre code {
-  background: none; /* keep inline style from inheriting */
-  border: none;
-  padding: 0;
-  font-size: 0.92em; /* a touch smaller inside block */
-  color: inherit;
-}
-
-/* ─────────────────────────────────────────────────────────────
-   Pretty block‑code with line numbers (clean gutter version)
-   ---------------------------------------------------------- */
-pre.ln {
-  position: relative;
-  background: #f6f8fa;
-  border: 1px solid #d0d7de;
-  border-radius: 6px;
-  margin: 1.5rem 0;
-  overflow: auto;
-  font-family: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
-  font-size: 0.9rem;
-  line-height: 1.5;
-}
-
-/* left‑hand gutter */
-pre.ln code {
-  display: block;
-  padding: 1rem 1rem 1rem 2.75rem; /* was 3.25rem */
-}
-pre.ln code .line {
-  display: block;
-  position: relative;
-  white-space: pre;
-}
-pre.ln code .num {
-  position: absolute;
-  left: -2.75rem; /* align with new padding */
-  width: 2rem;
-  text-align: right;
-  color: #8c959f;
+.hljs-ln-numbers {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
   user-select: none;
-  opacity: 0.75;
-}
 
-/* zebra stripe for readability */
-pre.ln code .line:nth-child(odd) {
-  background: rgba(0, 0, 0, 0.012);
+  text-align: right;
+  color: #6a737d; /* Muted color for numbers */
+  vertical-align: top;
+  padding-right: 1em !important;
 }
-
-/* inline code */
-code {
-  background: #f6f8fa;
-  border: 1px solid #d0d7de;
-  border-radius: 4px;
-  padding: 0.15em 0.4em;
-  font-size: 0.94em;
+/*
+  Restore indentation for lists inside the main content area,
+  overriding any global "reset" styles.
+*/
+.content ul,
+.content ol {
+  padding-left: 2em;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

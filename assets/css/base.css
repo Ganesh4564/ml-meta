@@ -1,6 +1,26 @@
-/* assets/css/base.css */
+/* assets/css/base.css
+ * -------------------------------------------------------------
+ * Global reset, design‑tokens and generic utilities
+ * ---------------------------------------------------------- */
 
-/* Reset and global styles */
+:root {
+  /* brand palette */
+  --c-blue-600: #0366d6;
+  --c-blue-700: #044289;
+  --c-green-600: #2da44e;
+  --c-gray-900: #24292e;
+  --c-gray-700: #586069;
+  --c-gray-200: #d0d7de;
+
+  /* fonts */
+  --font-mono: SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+  /* spacing (scale of 4 px) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +29,7 @@
 
 body {
   font-family: "Helvetica Neue", Arial, sans-serif;
-  color: #333;
+  color: var(--c-gray-900);
   background: #f4f6f8;
   line-height: 1.6;
 }
@@ -22,15 +42,14 @@ video {
 }
 
 a {
-  color: #0366d6;
+  color: var(--c-blue-600);
   text-decoration: none;
 }
-
 a:hover {
   text-decoration: underline;
 }
 
-/* Utility */
+/* Shared container helper ----------------------------------- */
 .container {
   width: 90%;
   max-width: 900px;
@@ -38,30 +57,38 @@ a:hover {
   padding: 0 1rem;
 }
 
-/* Figure and Caption Styling */
+/* Figure & caption ------------------------------------------ */
 figure {
-  margin-top: 1.5rem;
-  margin-bottom: 1.5rem;
+  margin: 1.5rem 0;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 figure img {
   max-width: 100%;
-  height: auto;
-  border: 1px solid #e1e4e8;
+  border: 1px solid var(--c-gray-200);
   border-radius: 6px;
 }
-
 figure figcaption {
-  margin-top: 0.75rem;
-  font-size: 0.9em;
-  color: #586069;
-  text-align: center;
+  padding-top: 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Aligns text to the left */
+  gap: 0.2rem; /* Creates a small space between each line */
 }
 
-/* Generic Button Styles (for reuse) */
+/* Inline code ------------------------------------------------ */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.94em;
+  background: #f6f8fa;
+  border: 1px solid var(--c-gray-200);
+  border-radius: 4px;
+  padding: 0.15em 0.4em;
+  white-space: pre-wrap;
+}
+
+/* Buttons (GitHub / Slack) ---------------------------------- */
 .btn-slack,
 .btn-github {
   display: inline-block;
@@ -69,39 +96,30 @@ figure figcaption {
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   font-weight: 600;
-  text-decoration: none;
-  transition: background-color 0.2s ease-in-out;
+  transition: background-color 0.2s;
 }
-
 .btn-slack {
-  background: #4a154b; /* Slack brand color */
+  background: #4a154b;
 }
 .btn-slack:hover {
-  background: #621f69; /* Slightly lighter on hover */
-  color: #fff;
-  text-decoration: none;
+  background: #621f69;
 }
-
 .btn-github {
-  background-color: #2da44e; /* GitHub's brand color */
+  background: var(--c-green-600);
 }
 .btn-github:hover {
-  background-color: #279045;
-  color: #fff;
-  text-decoration: none;
+  background: #279045;
 }
 
-/* Main contributors -------------------------------------------------- */
+/* Main‑contributor cards ------------------------------------ */
 #main-contributors {
   margin-top: 3rem;
 }
-
 #main-contributors h2 {
   font-size: 1.4rem;
   margin-bottom: 0.8rem;
 }
 
-/* responsive grid: 1–2 cards per row depending on width */
 .main-contrib-list {
   display: grid;
   gap: 1.25rem;
@@ -125,84 +143,53 @@ figure figcaption {
   align-items: center;
   margin: 0 0 0.6rem 0;
 }
-
 .main-card img {
   width: 64px;
   height: 64px;
   border-radius: 50%;
   margin-right: 0.8rem;
-  flex-shrink: 0;
 }
-
-.main-card figcaption {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .main-card .name {
   font-weight: 700;
-  font-size: 1rem;
 }
 .main-card .role {
   font-size: 0.85rem;
   color: #666;
 }
-
 .main-card .bio {
   font-size: 0.85rem;
   line-height: 1.45;
   margin: 0.5rem 0 0.6rem;
-  flex: 1; /* push link to the bottom */
+  flex: 1;
 }
-
 .site-link {
   font-size: 0.85rem;
-  color: #0366d6;
-  text-decoration: none;
-}
-.site-link:hover {
-  text-decoration: underline;
+  color: var(--c-blue-600);
 }
 
-/* Call for contribution section -------------------------------------- */
 #call-for-contribution {
   text-align: center;
   margin-top: 4rem;
   padding: 2rem;
-  background-color: #f6f8fa;
-  border: 1px solid #e1e4e8;
+  background: #f6f8fa;
+  border: 1px solid var(--c-gray-200);
   border-radius: 8px;
 }
-
-#call-for-contribution h2 {
-  margin-top: 0;
-  font-size: 1.5rem;
-}
-
 #call-for-contribution p {
-  max-width: 65ch; /* Improves readability */
-  margin: 0 auto 1.5rem; /* Added bottom margin */
+  max-width: 65ch;
+  margin: 0 auto 1.5rem;
 }
-
-/* This new class will style the container for the buttons */
 .button-group {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 1rem; /* This creates space between the buttons */
+  gap: 1rem;
 }
 
-/* Contributors section ---------------------------------------------------- */
+/* Contributors grid ----------------------------------------- */
 #contributors {
   margin-top: 3rem;
 }
-
-#contributors h2 {
-  font-size: 1.4rem;
-  margin-bottom: 0.5rem;
-}
-
 .contributors-list {
   display: grid;
   gap: 0.8rem;
@@ -211,35 +198,30 @@ figure figcaption {
   margin: 0;
   padding: 0;
 }
-
 .contrib-card a {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-decoration: none;
-  color: inherit;
   border: 1px solid #ddd;
   border-radius: 6px;
   padding: 0.6rem 0.4rem;
   transition: box-shadow 0.2s;
+  color: inherit;
+  text-decoration: none;
 }
-
 .contrib-card a:hover {
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
 }
-
 .contrib-card img {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   margin-bottom: 0.4rem;
 }
-
 .contrib-card .name {
   font-weight: 600;
   font-size: 0.9rem;
 }
-
 .contrib-card .count {
   font-size: 0.75rem;
   color: #555;

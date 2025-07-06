@@ -12,66 +12,6 @@
 
     <!-- Styles for the book list -->
     <link rel="stylesheet" href="assets/css/books.css" />
-
-    <!-- ✧ Optional inline styles for the contributor cards ---------------- -->
-    <style>
-      /* Contributors section ---------------------------------------------------- */
-      #contributors {
-        margin-top: 3rem;
-      }
-
-      #contributors h2 {
-        font-size: 1.4rem;
-        margin-bottom: 0.5rem;
-      }
-
-      .contributors-list {
-        display: grid;
-        gap: 0.8rem;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        list-style: none;
-        margin: 0;
-        padding: 0;
-      }
-
-      .contrib-card a {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-decoration: none;
-        color: inherit;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        padding: 0.6rem 0.4rem;
-        transition: box-shadow 0.2s;
-      }
-
-      .contrib-card a:hover {
-        box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-      }
-
-      .contrib-card img {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin-bottom: 0.4rem;
-      }
-
-      .contrib-card .name {
-        font-weight: 600;
-        font-size: 0.9rem;
-      }
-
-      .contrib-card .count {
-        font-size: 0.75rem;
-        color: #555;
-      }
-
-      .error {
-        color: #c00;
-        font-style: italic;
-      }
-    </style>
   </head>
 
   <body>
@@ -91,13 +31,11 @@
           <!-- Algorithms -->
           <li class="nav-section">
             <details>
-              <summary>
-                <!-- clickable book title inside the summary -->
-                <a class="book-link" href="books/algorithms/index.html">
-                  Algorithms (Sanjoy Dasgupta)
-                </a>
-              </summary>
+              <summary>Algorithms (Sanjoy Dasgupta)</summary>
               <ul class="chapter-list">
+                <li>
+                  <a href="books/algorithms/index.html"> 📚 Book Directory </a>
+                </li>
                 <li>
                   <a
                     href="books/algorithms/chapters/06-dynamic-programming.html"
@@ -239,6 +177,8 @@
           community on Slack to discuss ideas.
         </p>
 
+        <p>Please read this carefully before contributing</p>
+
         <div class="button-group">
           <a
             href="https://github.com/COD1995/ml-meta"
@@ -247,6 +187,9 @@
             rel="noopener"
           >
             🚀 Contribute on GitHub
+          </a>
+          <a href="guide/contribution-sample.html" class="btn-slack">
+            📄 View Contribution Guide
           </a>
           <a
             class="btn-slack"
@@ -280,41 +223,46 @@
     </div>
 
     <!-- ✧ Script to fetch and display GitHub contributors ----------------------- -->
-    <script>
-      (async () => {
-        const owner = "COD1995";
-        const repo = "ml-meta";
-        const api = `https://api.github.com/repos/${owner}/${repo}/contributors`;
-        /* If you hit the unauthenticated 60‑per‑hour limit, add:
-               const headers = { Authorization: 'Bearer YOUR_GITHUB_TOKEN' }; */
-        const headers = {};
+    <script type="module">
+      const owner = "COD1995",
+        repo = "ml-meta";
+      const key = "ghContribCache",
+        ttl = 24 * 60 * 60 * 1e3; // 24 h
 
-        let data = [];
-        try {
-          const res = await fetch(api, { headers });
-          if (!res.ok)
-            throw new Error(`GitHub API: ${res.status} ${res.statusText}`);
-          data = await res.json();
-        } catch (err) {
-          console.error(err);
+      async function getData() {
+        const cached = JSON.parse(localStorage.getItem(key) || "{}");
+        if (cached.when && Date.now() - cached.when < ttl) return cached.data;
+        const res = await fetch(
+          `https://api.github.com/repos/${owner}/${repo}/contributors`
+        );
+        if (!res.ok) throw new Error(res.status);
+        const data = await res.json();
+        localStorage.setItem(key, JSON.stringify({ when: Date.now(), data }));
+        return data;
+      }
+
+      getData()
+        .then((list) => {
+          const ul = document.querySelector(".contributors-list");
+          list.forEach((u) => {
+            ul.insertAdjacentHTML(
+              "beforeend",
+              `
+      <li class="contrib-card">
+        <a href="${u.html_url}" target="_blank" rel="noopener">
+          <img src="${u.avatar_url}&s=60" alt="${u.login}">
+          <span class="name">${u.login}</span>
+          <span class="count">(${u.contributions})</span>
+        </a>
+      </li>`
+            );
+          });
+        })
+        .catch((e) => {
+          console.error(e);
           document.querySelector("#contributors").innerHTML =
-            '<p class="error">Unable to load contributor list 😢</p>';
-          return;
-        }
-
-        const list = document.querySelector(".contributors-list");
-        data.forEach((user) => {
-          const li = document.createElement("li");
-          li.className = "contrib-card";
-          li.innerHTML = `
-              <a href="${user.html_url}" target="_blank" rel="noopener">
-                <img src="${user.avatar_url}&s=60" alt="${user.login} avatar">
-                <span class="name">${user.login}</span>
-                <span class="count">(${user.contributions})</span>
-              </a>`;
-          list.appendChild(li);
+            '<p class="error">Unable to load contributor list 😢</p>';
         });
-      })();
     </script>
   </body>
 </html>

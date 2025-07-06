@@ -172,6 +172,14 @@ body.sidebar-collapsed .sidebar-header {
   margin-bottom: 1.5rem;
 }
 
+/* Center the footer text on chapter pages */
+.content footer {
+  text-align: center;
+  margin-top: 2.5rem; /* Adds space above the footer */
+  padding-top: 1.5rem; /* Adds space between the line and the text */
+  border-top: 1px solid #e1e4e8; /* Adds a separator line */
+}
+
 /* ---------- Mobile drawer --------------------------------- */
 @media (max-width: 768px) {
   .layout {

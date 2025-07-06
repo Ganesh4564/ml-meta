@@ -19,6 +19,9 @@
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 1rem;
+
+  /* shadows */
+  --shadow-sm: 0 1px 3px rgba(27, 31, 35, 0.1);
 }
 
 * {
@@ -225,4 +228,10 @@ code {
 .contrib-card .count {
   font-size: 0.75rem;
   color: #555;
+}
+
+/* Shared card style for content containers */
+.card {
+  background: var(--c-white);
+  padding: 2rem;
 }

@@ -83,8 +83,307 @@
         </div>
       </aside>
 
-      <main class="content">
+      <main class="content card">
         <h1>Chapter 6: Dynamic Programming</h1>
+
+        <section id="recap-shortest-path-dags">
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Sledgehammers of Algorithm Design</strong></p>
+              <p class="original-text">
+                <em
+                  >In the preceding chapters we have seen some elegant design
+                  principles-such as divide-andconquer, graph exploration, and
+                  greedy choice-that yield definitive algorithms for a variety
+                  of important computational tasks. The drawback of these tools
+                  is that they can only be used on very specific types of
+                  problems. We now turn to the two sledgehammers of the
+                  algorithms craft, dynamic programming and linear programming,
+                  techniques of very broad applicability that can be invoked
+                  when more specialized methods fail. Predictably, this
+                  generality often comes with a cost in efficiency.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph introduces
+                <strong>dynamic programming</strong> (DP) and
+                <strong>linear programming</strong> as powerful, general-purpose
+                problem-solving techniques. It contrasts them with more
+                specialized methods like greedy algorithms or
+                divide-and-conquer, which are elegant but only work for specific
+                problem structures. Dynamic programming is presented as a
+                "sledgehammer"—a versatile and powerful tool that can solve a
+                very wide range of problems, especially when other methods fail.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="shortest-paths-in-dags">
+          <h2>6.1 Shortest paths in dags, revisited</h2>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>A Familiar Problem: Shortest Paths in DAGs</strong></p>
+              <p class="original-text">
+                <em
+                  >At the conclusion of our study of shortest paths (Chapter 4),
+                  we observed that the problem is especially easy in directed
+                  acyclic graphs (dags). Let's recapitulate this case, because
+                  it lies at the heart of dynamic programming.</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph sets the stage by revisiting a problem that is
+                easy to solve: finding the shortest path in a
+                <strong>Directed Acyclic Graph (DAG)</strong>. The text
+                highlights that the solution to this specific problem contains
+                the core logic that defines the entire paradigm of dynamic
+                programming.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Key Property of a DAG: Linearization</strong></p>
+              <p class="original-text">
+                <em
+                  >The special distinguishing feature of a dag is that its nodes
+                  can be linearized; that is, they can be arranged on a line so
+                  that all edges go from left to right (Figure 6.1). To see why
+                  this helps with shortest paths, suppose we want to figure out
+                  distances from node $S$ to the other nodes. For concreteness,
+                  let's focus on node $D$. The only way to get to it is through
+                  its predecessors, $B$ or $C$; so to find the shortest path to
+                  $D$, we need only compare these two routes:</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                The key feature of a DAG that makes it easy to work with is that
+                it has no cycles. This means its vertices can be
+                <strong>linearized</strong> (also known as being topologically
+                sorted)—arranged in a straight line such that all directed edges
+                only point from left to right. This ordering is fundamental
+                because it guarantees that by the time you process any node, you
+                have <em>already</em> processed all the nodes that could
+                possibly lead to it.
+              </p>
+            </div>
+          </div>
+
+          <figure>
+            <img
+              src="../../../assets/images/algorithms/chpt_6_imgs/figure-6-1.png"
+              alt="A DAG and its topological ordering."
+              width="700"
+            />
+            <figcaption>
+              Figure 6.1: A dag and its linearization (topological ordering).
+            </figcaption>
+          </figure>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Recurrence Relation</strong></p>
+              <p class="original-text">
+                <em
+                  >$$ \operatorname{dist}(D)=\min \{\operatorname{dist}(B)+1,
+                  \operatorname{dist}(C)+3\} . $$ A similar relation can be
+                  written for every node. If we compute these dist values in the
+                  left-to-right order of Figure 6.1, we can always be sure that
+                  by the time we get to a node $v$, we already have all the
+                  information we need to compute dist $(v)$. We are therefore
+                  able to compute all distances in a single pass:</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This section provides the core mathematical relationship, or
+                <strong>recurrence relation</strong>, for this problem. The
+                shortest path to any node <code>D</code> must pass through one
+                of its immediate predecessors (<code>B</code> or
+                <code>C</code> in the example). Therefore, we only need to
+                compare the path lengths of those incoming routes:
+              </p>
+              <ul>
+                <li>Path through B: <code>dist(B) + length(B, D)</code></li>
+                <li>Path through C: <code>dist(C) + length(C, D)</code></li>
+              </ul>
+              <p>
+                We take the minimum of these options. Because we process the
+                nodes in their linearized order, we are guaranteed to have
+                already calculated the final values for <code>dist(B)</code> and
+                <code>dist(C)</code> by the time we get to <code>D</code>.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>The Single-Pass Algorithm</strong></p>
+              <pre class="pseudocode" id="dag-shortest-path">
+                \begin{algorithmic}
+                    \State initialize all $\dist(\cdot)$ values to $\infty$
+                    \State $\dist(s) \gets 0$
+                    \For{each $v \in V \setminus \{s\}$, in linearized order}
+                        \State $\dist(v) \gets \min_{(u,v) \in E} \{\dist(u) + l(u,v)\}$
+                    \EndFor
+                \end{algorithmic}
+                </pre
+              >
+            </div>
+            <div class="explanation-text">
+              <p>
+                This pseudocode shows the complete algorithm. It works in a
+                single pass through the topologically sorted vertices:
+              </p>
+              <ol>
+                <li>
+                  Initialize all distances to infinity, except for the start
+                  node <code>s</code>, which is 0.
+                </li>
+                <li>
+                  Go through the vertices one by one according to their
+                  linearized order.
+                </li>
+                <li>
+                  For each vertex <code>v</code>, calculate its shortest
+                  distance by applying the `min` formula, using the
+                  already-computed `dist` values of its predecessors.
+                </li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>Solving Subproblems in Order</strong></p>
+              <p class="original-text">
+                <em
+                  >Notice that this algorithm is solving a collection of
+                  subproblems, $\{\operatorname{dist}(u): u \in V\}$. We start
+                  with the smallest of them, dist $(s)$, since we immediately
+                  know its answer to be 0. We then proceed with progressively
+                  "larger" subproblems-distances to vertices that are further
+                  and further along in the linearization...</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph explicitly connects the algorithm to the core
+                idea of dynamic programming. The main problem ("find all
+                shortest paths") is broken down into a collection of smaller
+                <strong>subproblems</strong>, where each subproblem is: "what is
+                the shortest distance to node <code>u</code>?". The algorithm
+                solves these subproblems one by one in a specific order (the
+                linearized order), starting with the smallest subproblem
+                (<code>dist(s)</code>) and using its answer to help solve the
+                next ones.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>A General Technique</strong></p>
+              <p class="original-text">
+                <em
+                  >This is a very general technique. At each node, we compute
+                  some function of the values of the node's predecessors. It so
+                  happens that our particular function is a minimum of sums, but
+                  we could just as well make it a maximum, in which case we
+                  would get longest paths in the dag. Or we could use a product
+                  instead of a sum...</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This paragraph highlights the flexibility of the dynamic
+                programming framework. The same fundamental algorithm
+                (traversing a DAG in linear order and applying a recurrence at
+                each node) can solve many different problems simply by changing
+                the function being computed. Instead of a `min` of `sums` for
+                shortest paths, you could use a `max` of `sums` to find longest
+                paths, or a `product` to find something else entirely.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>What is Dynamic Programming?</strong></p>
+              <p class="original-text">
+                <em
+                  >Dynamic programming is a very powerful algorithmic paradigm
+                  in which a problem is solved by identifying a collection of
+                  subproblems and tackling them one by one, smallest first,
+                  using the answers to small problems to help figure out larger
+                  ones... In dynamic programming we are not given a dag; the dag
+                  is implicit. Its nodes are the subproblems we define, and its
+                  edges are the dependencies between the subproblems...</em
+                >
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This is the central definition of
+                <strong>dynamic programming</strong>. It is a technique built on
+                three key ideas:
+              </p>
+              <ol>
+                <li>
+                  <strong>Break the problem into subproblems:</strong> The first
+                  step is to define the smaller pieces of the problem (e.g.,
+                  `dist(u)`).
+                </li>
+                <li>
+                  <strong>Solve subproblems in order:</strong> You must solve
+                  them from "smallest" to "largest," so that answers to
+                  dependencies are always ready when you need them.
+                </li>
+                <li>
+                  <strong>Store and reuse solutions:</strong> Solutions to
+                  smaller subproblems are stored and used to build up solutions
+                  to larger ones.
+                </li>
+              </ol>
+              <p>
+                The paragraph makes a beautiful point: for most DP problems, the
+                DAG isn't given to you—it's an **implicit** structure where the
+                nodes are the subproblems and the edges are their dependencies.
+                Dynamic programming is the process of solving the subproblems in
+                the correct topological order of this implicit DAG.
+              </p>
+            </div>
+          </div>
+
+          <div class="explanation-block">
+            <div class="original-text-container">
+              <p><strong>On to an Example</strong></p>
+              <p class="original-text">
+                <em>But it's time we saw an example.</em>
+              </p>
+            </div>
+            <div class="explanation-text">
+              <p>
+                This is a transition, indicating that the text will now move
+                from the abstract definition of dynamic programming to a
+                concrete example to illustrate how these ideas are applied in
+                practice.
+              </p>
+            </div>
+          </div>
+        </section>
 
         <section id="longest-increasing-subsequences">
           <h2>6.2 Longest increasing subsequences</h2>

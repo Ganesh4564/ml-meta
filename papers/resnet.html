@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Deep Residual Learning for Image Recognition</title>
+    <link rel="stylesheet" href="../../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../../assets/css/chapters.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js"></script>
+  </head>
+  <body>
+    <main class="content card">
+      <h1>Deep Residual Learning for Image Recognition</h1>
+
+      <h2>Motivation</h2>
+      <p>
+        Deep networks suffer from the <strong>degradation problem</strong> — increasing depth leads to higher training error. ResNet solves this with residual learning.
+      </p>
+
+      <h2>Residual Block</h2>
+      <p>
+        The network learns a residual function:
+        $$ H(x) = F(x) + x $$
+        where:
+        <ul>
+          <li>\( x \): input</li>
+          <li>\( F(x) \): residual mapping learned by a few layers</li>
+        </ul>
+      </p>
+
+      <figure>
+        <img src="../../../assets/images/resnet/residual-block.png" alt="Residual Block Diagram" width="600" />
+        <figcaption>Figure: A residual block with shortcut connection.</figcaption>
+      </figure>
+
+      <h2>Types of Shortcuts</h2>
+      <ul>
+        <li><strong>Identity Shortcut</strong>: used when input and output dimensions match</li>
+        <li><strong>Projection Shortcut</strong>: 1×1 conv layer used to match dimensions</li>
+      </ul>
+
+      <h2>Bottleneck Architecture</h2>
+      <p>For deeper networks (e.g., 50/101/152 layers), a residual block uses:</p>
+      <ul>
+        <li>1×1 convolution (reduce dim)</li>
+        <li>3×3 convolution</li>
+        <li>1×1 convolution (restore dim)</li>
+      </ul>
+
+      <h2>Results</h2>
+      <ul>
+        <li>ResNet-152: Top-5 error of 3.57% (ImageNet)</li>
+        <li>Improves object detection (Faster R-CNN) and segmentation (MS COCO)</li>
+      </ul>
+
+      <h2>Conclusion</h2>
+      <p>
+        Residual learning enables effective training of ultra-deep CNNs, improving accuracy and generalization across many vision tasks.
+      </p>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks</title>
+    <link rel="stylesheet" href="../../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../../assets/css/chapters.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js"></script>
+  </head>
+  <body>
+    <main class="content card">
+      <h1>EfficientNet: Rethinking Model Scaling for CNNs</h1>
+
+      <h2>Abstract</h2>
+      <p>According to the authors that the most ConvNets (CNNs) are developed at a fixed size, then after they scaled up for better accuracy. 
+        Traditionally, this scaling is done along one dimension either depth, width, or resolution. 
+        In this paper they proposes compound scaling, which scales all three uniformly using a compound coefficient. 
+        They also use neural architecture search (NAS) to create a new baseline model called Efficient Net, 
+        which outperforms previous ConvNets significantly in both accuracy and efficiency</p>
+      <p>
+        EfficientNet proposes a new scaling method that uniformly scales depth, width, and resolution using a compound coefficient:
+      </p>
+      <p>
+        $$ d = \alpha^\phi, \quad w = \beta^\phi, \quad r = \gamma^\phi $$
+        subject to: 
+        $$ \alpha \cdot \beta^2 \cdot \gamma^2 \approx 2 $$
+      </p>
+      <p>This improves both accuracy and efficiency across a range of models.</p>
+
+      <h2>Compound Scaling</h2>
+      <p>Instead of scaling only width or depth, EfficientNet applies:</p>
+      <ul>
+        <li><strong>Depth</strong>: More layers to capture complex features.</li>
+        <li><strong>Width</strong>: More channels for richer features.</li>
+        <li><strong>Resolution</strong>: Larger input images for finer detail.</li>
+      </ul>
+
+      <h2>Architecture</h2>
+      <p>The base model, EfficientNet-B0, is discovered via NAS (Neural Architecture Search). All other models (B1-B7) are scaled versions of B0 using the compound scaling method.</p>
+
+      <figure>
+        <img src="/ML/ml-meta/assets/images/papers/efficeientnet.png" alt="Compound Scaling Diagram" width="600" />
+        <figcaption>Figure: Compound scaling adjusts all three dimensions in balance.</figcaption>
+      </figure>
+
+      <h2>Results</h2>
+      <p>EfficientNet-B7 achieves:</p>
+      <ul>
+        <li>Top-1 Accuracy: <strong>84.3%</strong></li>
+        <li>Parameters: <strong>66M</strong></li>
+        <li>FLOPs: <strong>37B</strong></li>
+      </ul>
+      <p>Compared to NASNet-A, EfficientNet provides better accuracy with ~8x fewer parameters.</p>
+
+      <h2>Conclusion</h2>
+      <p>
+        EfficientNet shows that uniformly scaling model dimensions using a compound coefficient leads to better performance than previous state-of-the-art CNNs, with significantly fewer resources.
+      </p>
+    </main>
+  </body>
+</html>

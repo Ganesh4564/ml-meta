@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MobileNets: Efficient CNNs for Mobile Vision</title>
+    <link rel="stylesheet" href="../../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../../assets/css/chapters.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/highlight.min.js"></script>
+    <script>
+      window.MathJax = {
+        tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/pseudocode@latest/build/pseudocode.min.js"></script>
+  </head>
+  <body>
+    <main class="content card">
+      <h1>MobileNets: Efficient CNNs for Mobile Vision</h1>
+
+      <h2>Introduction</h2>
+      <p>
+        MobileNets are designed to be fast and lightweight for deployment on mobile and embedded devices. 
+        They introduce <strong>depthwise separable convolutions</strong> to significantly reduce computation and parameters.
+      </p>
+
+      <h2>Depthwise Separable Convolutions</h2>
+      <p>
+        Instead of performing a single heavy convolution operation, MobileNet breaks it into two steps:
+        <ul>
+          <li><strong>Depthwise convolution</strong>: Applies one filter per input channel.</li>
+          <li><strong>Pointwise convolution</strong>: Uses 1×1 convolutions to combine the output.</li>
+        </ul>
+      </p>
+      <p><strong>Computation comparison:</strong></p>
+      <p>
+        $$ \text{Standard cost} = D_K \cdot D_K \cdot M \cdot N \cdot D_F \cdot D_F $$
+        $$ \text{Depthwise + Pointwise} = D_K \cdot D_K \cdot M \cdot D_F \cdot D_F + M \cdot N \cdot D_F \cdot D_F $$
+      </p>
+
+      <figure>
+        <img src="ML/ml-meta/assets/images/papers/mobilenet.png" alt="Depthwise vs Standard Convolution" width="600" />
+        <figcaption>Figure: Comparison between standard convolution and depthwise separable convolution.</figcaption>
+      </figure>
+
+      <h2>Hyperparameters</h2>
+      <ul>
+        <li><strong>Width Multiplier (α)</strong>: Shrinks the number of channels (model size).</li>
+        <li><strong>Resolution Multiplier (ρ)</strong>: Scales the input image resolution (speed vs accuracy).</li>
+      </ul>
+
+      <h2>Performance</h2>
+      <ul>
+        <li><strong>Accuracy:</strong> 70.6% (top-1 on ImageNet)</li>
+        <li><strong>Mult-Adds:</strong> 569 million</li>
+        <li><strong>Parameters:</strong> 4.2 million</li>
+      </ul>
+
+      <h2>Applications</h2>
+      <p>
+        MobileNets are widely used for real-time applications, including:
+        <ul>
+          <li>Mobile object detection</li>
+          <li>Facial recognition</li>
+          <li>Fine-grained classification</li>
+          <li>Geo-localization (e.g., Google’s PlaNet)</li>
+        </ul>
+      </p>
+    </main>
+  </body>
+</html>
